@@ -182,3 +182,21 @@ std::pair<QVector2D, QVector2D> Game::resolveCollision(Ball* ballA, Ball* ballB)
     // return the change in velocities for the two balls
     return std::make_pair(ballA->getVelocity() - ballAStartingVelocity, ballB->getVelocity() - ballBStartingVelocity);
 }
+
+Memento* Game::saveToMemento() {
+    GameState* state = new GameState(m_balls,m_table);
+    Memento* memento = new Memento(state);
+    return memento;
+}
+
+void Game::restoreFromMemento(Memento *memento) {
+    State* state = memento->m_state;
+    GameState* gameState = dynamic_cast<GameState*>(state);
+
+    delete m_table;
+    for (auto b : *m_balls) delete b;
+    delete m_balls;
+
+    m_table = gameState->getTable();
+    m_balls = gameState->getBalls();
+}

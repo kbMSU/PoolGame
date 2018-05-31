@@ -208,6 +208,7 @@ DIST          = ../Poolgame/config.json \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/qt_config.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_post.prf \
+		../Poolgame/.qmake.stash \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/toolchain.prf \
@@ -246,7 +247,9 @@ DIST          = ../Poolgame/config.json \
 		../Poolgame/pocket.h \
 		../Poolgame/stagetwobuilder.h \
 		../Poolgame/balldecorator.h \
-		../Poolgame/mouseeventable.h ../Poolgame/main.cpp \
+		../Poolgame/mouseeventable.h \
+		../Poolgame/state.h \
+		../Poolgame/memento.h ../Poolgame/main.cpp \
 		../Poolgame/dialog.cpp \
 		../Poolgame/stageonefactory.cpp \
 		../Poolgame/ball.cpp \
@@ -407,6 +410,7 @@ Makefile: ../Poolgame/Poolgame.pro /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/qt_config.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/toolchain.prf \
@@ -571,6 +575,7 @@ Makefile: ../Poolgame/Poolgame.pro /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/qt_config.prf:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/mac/sdk.prf:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/toolchain.prf:
@@ -631,7 +636,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h ../Poolgame/state.h ../Poolgame/memento.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../Poolgame/main.cpp ../Poolgame/dialog.cpp ../Poolgame/stageonefactory.cpp ../Poolgame/ball.cpp ../Poolgame/table.cpp ../Poolgame/game.cpp ../Poolgame/gamebuilder.cpp ../Poolgame/stagetwofactory.cpp ../Poolgame/pocket.cpp ../Poolgame/stagetwobuilder.cpp ../Poolgame/balldecorator.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Poolgame/dialog.ui $(DISTDIR)/
 
@@ -643,6 +648,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r Poolgame.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 

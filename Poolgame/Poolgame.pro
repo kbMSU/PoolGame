@@ -49,7 +49,9 @@ HEADERS += \
     pocket.h \
     stagetwobuilder.h \
     balldecorator.h \
-    mouseeventable.h
+    mouseeventable.h \
+    state.h \
+    memento.h
 
 FORMS += \
         dialog.ui
