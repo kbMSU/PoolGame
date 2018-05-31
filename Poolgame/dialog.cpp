@@ -9,7 +9,7 @@
 Dialog::Dialog(Game *game, QWidget* parent) :
     QDialog(parent),
     ui(new Ui::Dialog),
-    m_game(game)
+    m_caretaker(new Caretaker(game))
 {
     ui->setupUi(this);
 
@@ -31,7 +31,7 @@ Dialog::~Dialog()
 {
     delete aTimer;
     delete dTimer;
-    delete m_game;
+    delete m_caretaker;
     delete ui;
 }
 
@@ -40,13 +40,13 @@ void Dialog::tryRender() {
 }
 
 void Dialog::nextAnim() {
-    m_game->animate(1.0/(double)animFrameMS);
+    m_caretaker->getGame()->animate(1.0/(double)animFrameMS);
 }
 
 void Dialog::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    m_game->render(painter);
+    m_caretaker->getGame()->render(painter);
 }
 
 void Dialog::mousePressEvent(QMouseEvent* event) {
@@ -62,7 +62,7 @@ void Dialog::mouseMoveEvent(QMouseEvent* event) {
 
 void Dialog::evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent *event) {
     // handle all the clicky events, and remove them if they've xPIRED
-    MouseEventable::EventQueue& Qu = m_game->getEventFns();
+    MouseEventable::EventQueue& Qu = m_caretaker->getGame()->getEventFns();
     for (ssize_t i = Qu.size()-1; i >= 0; i--) {
         if (auto spt = (Qu.at(i)).lock()) {
             if (spt->second == t) {

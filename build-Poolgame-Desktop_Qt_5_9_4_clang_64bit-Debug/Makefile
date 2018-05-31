@@ -60,7 +60,8 @@ SOURCES       = ../Poolgame/main.cpp \
 		../Poolgame/stagetwofactory.cpp \
 		../Poolgame/pocket.cpp \
 		../Poolgame/stagetwobuilder.cpp \
-		../Poolgame/balldecorator.cpp moc_dialog.cpp
+		../Poolgame/balldecorator.cpp \
+		../Poolgame/caretaker.cpp moc_dialog.cpp
 OBJECTS       = main.o \
 		dialog.o \
 		stageonefactory.o \
@@ -72,6 +73,7 @@ OBJECTS       = main.o \
 		pocket.o \
 		stagetwobuilder.o \
 		balldecorator.o \
+		caretaker.o \
 		moc_dialog.o
 DIST          = ../Poolgame/config.json \
 		../Poolgame/config.json \
@@ -249,7 +251,8 @@ DIST          = ../Poolgame/config.json \
 		../Poolgame/balldecorator.h \
 		../Poolgame/mouseeventable.h \
 		../Poolgame/state.h \
-		../Poolgame/memento.h ../Poolgame/main.cpp \
+		../Poolgame/memento.h \
+		../Poolgame/caretaker.h ../Poolgame/main.cpp \
 		../Poolgame/dialog.cpp \
 		../Poolgame/stageonefactory.cpp \
 		../Poolgame/ball.cpp \
@@ -259,7 +262,8 @@ DIST          = ../Poolgame/config.json \
 		../Poolgame/stagetwofactory.cpp \
 		../Poolgame/pocket.cpp \
 		../Poolgame/stagetwobuilder.cpp \
-		../Poolgame/balldecorator.cpp
+		../Poolgame/balldecorator.cpp \
+		../Poolgame/caretaker.cpp
 QMAKE_TARGET  = Poolgame
 DESTDIR       = 
 TARGET        = Poolgame.app/Contents/MacOS/Poolgame
@@ -636,8 +640,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h ../Poolgame/state.h ../Poolgame/memento.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Poolgame/main.cpp ../Poolgame/dialog.cpp ../Poolgame/stageonefactory.cpp ../Poolgame/ball.cpp ../Poolgame/table.cpp ../Poolgame/game.cpp ../Poolgame/gamebuilder.cpp ../Poolgame/stagetwofactory.cpp ../Poolgame/pocket.cpp ../Poolgame/stagetwobuilder.cpp ../Poolgame/balldecorator.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h ../Poolgame/state.h ../Poolgame/memento.h ../Poolgame/caretaker.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Poolgame/main.cpp ../Poolgame/dialog.cpp ../Poolgame/stageonefactory.cpp ../Poolgame/ball.cpp ../Poolgame/table.cpp ../Poolgame/game.cpp ../Poolgame/gamebuilder.cpp ../Poolgame/stagetwofactory.cpp ../Poolgame/pocket.cpp ../Poolgame/stagetwobuilder.cpp ../Poolgame/balldecorator.cpp ../Poolgame/caretaker.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Poolgame/dialog.ui $(DISTDIR)/
 
 
@@ -702,6 +706,9 @@ moc_dialog.cpp: /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/He
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
+		../Poolgame/caretaker.h \
 		../Poolgame/dialog.h \
 		moc_predefs.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/bin/moc
@@ -753,6 +760,9 @@ main.o: ../Poolgame/main.cpp ../Poolgame/dialog.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
+		../Poolgame/caretaker.h \
 		../Poolgame/gamebuilder.h \
 		../Poolgame/stageonefactory.h \
 		../Poolgame/stagetwofactory.h \
@@ -792,6 +802,9 @@ dialog.o: ../Poolgame/dialog.cpp ../Poolgame/dialog.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
+		../Poolgame/caretaker.h \
 		ui_dialog.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QTimer \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qtimer.h
@@ -862,6 +875,8 @@ game.o: ../Poolgame/game.cpp ../Poolgame/game.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonarray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game.o ../Poolgame/game.cpp
@@ -891,6 +906,8 @@ gamebuilder.o: ../Poolgame/gamebuilder.cpp ../Poolgame/gamebuilder.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonarray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gamebuilder.o ../Poolgame/gamebuilder.cpp
@@ -949,6 +966,8 @@ stagetwobuilder.o: ../Poolgame/stagetwobuilder.cpp ../Poolgame/stagetwobuilder.h
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonarray.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stagetwobuilder.o ../Poolgame/stagetwobuilder.cpp
@@ -966,6 +985,33 @@ balldecorator.o: ../Poolgame/balldecorator.cpp ../Poolgame/balldecorator.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/mouseeventable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o balldecorator.o ../Poolgame/balldecorator.cpp
+
+caretaker.o: ../Poolgame/caretaker.cpp ../Poolgame/caretaker.h \
+		../Poolgame/game.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../Poolgame/abstractstagefactory.h \
+		../Poolgame/ball.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QPoint \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/table.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
+		../Poolgame/pocket.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QBrush \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qbrush.h \
+		../Poolgame/balldecorator.h \
+		../Poolgame/utils.h \
+		../Poolgame/mouseeventable.h \
+		../Poolgame/memento.h \
+		../Poolgame/state.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o caretaker.o ../Poolgame/caretaker.cpp
 
 moc_dialog.o: moc_dialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dialog.o moc_dialog.cpp

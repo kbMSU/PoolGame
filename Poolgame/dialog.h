@@ -2,6 +2,7 @@
 #include <QDialog>
 #include "ball.h"
 #include "game.h"
+#include "caretaker.h"
 
 namespace Ui {
 class Dialog;
@@ -59,8 +60,8 @@ private:
      */
     Ui::Dialog *ui;
     /**
-     * @brief m_game - our game object to be played
+     * @brief m_caretaker - the caretaker for the game
      */
-    Game* m_game = nullptr;
+    Caretaker* m_caretaker = nullptr;
 };
 

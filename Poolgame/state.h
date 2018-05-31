@@ -9,6 +9,9 @@ class State
 public:
     virtual ~State() {}
 protected:
+    // This is an abstract class, cant be instantiated.
+    // But it has no pure virtual methods so i made its constructor
+    // protected instead.
     State() {}
 };
 
