@@ -13,8 +13,7 @@
 #include "memento.h"
 
 class Game {
-    std::vector<Ball*>* m_balls;
-    Table* m_table;
+    GameState* m_gameState;
 
     // screenshake stuff
     QVector2D m_screenshake;
@@ -36,7 +35,7 @@ private:
 public:
     ~Game();
     Game(std::vector<Ball*>* balls, Table* table) :
-        m_balls(balls), m_table(table) {}
+        m_gameState(new GameState(balls,table)) {}
     /**
      * @brief Draws all owned objects to the screen (balls and table)
      * @param painter - qtpainter to blit to screen with
@@ -49,9 +48,9 @@ public:
     void animate(double dt);
 
     /* how large the window's width should at least be */
-    int getMinimumWidth() const { return m_table->getWidth(); }
+    int getMinimumWidth() const { return m_gameState->getTable()->getWidth(); }
     /* how large the window's height should at least be */
-    int getMinimumHeight() const { return m_table->getHeight(); }
+    int getMinimumHeight() const { return m_gameState->getTable()->getHeight(); }
 
     /**
      * @brief resolveCollision - modify the ball's velocity if it is colliding with the table

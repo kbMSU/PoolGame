@@ -9,16 +9,14 @@
 
 Game::~Game() {
     // cleanup ya boi
-    for (auto b : *m_balls) delete b;
-    delete m_balls;
-    delete m_table;
+    delete m_gameState;
 }
 
 void Game::render(QPainter &painter) const {
     // table is rendered first, as its the lowest
-    m_table->render(painter, m_screenshake);
+    m_gameState->getTable()->render(painter, m_screenshake);
     // then render all the balls
-    for (Ball* b : *m_balls) b->render(painter, m_screenshake);
+    for (Ball* b : *m_gameState->getBalls()) b->render(painter, m_screenshake);
 }
 
 void Game::animate(double dt) {
@@ -30,12 +28,12 @@ void Game::animate(double dt) {
 
     // (test) collide the ball with each other ball exactly once
     // to achieve this, balls only check collisions with balls "after them"
-    for (auto it = m_balls->begin(); it != m_balls->end(); ++it) {
+    for (auto it = m_gameState->getBalls()->begin(); it != m_gameState->getBalls()->end(); ++it) {
         Ball* ballA = *it;
         if (ballA == nullptr) continue;
 
         // correct ball velocity if colliding with table
-        QVector2D tableBallDeltaV = resolveCollision(m_table, ballA);
+        QVector2D tableBallDeltaV = resolveCollision(m_gameState->getTable(), ballA);
         // test and resolve breakages with balls bouncing off table
         if (ballA->applyBreak(tableBallDeltaV, toBeAdded)) {
             // mark this ball to be deleted
@@ -48,7 +46,7 @@ void Game::animate(double dt) {
         }
 
         // check whether ball should be swallowed
-        if (m_table->sinks(ballA)) {
+        if (m_gameState->getTable()->sinks(ballA)) {
             // defer swallowing until later (messes iterators otherwise)
             toBeRemoved.push_back(ballA);
             // nullify this ball
@@ -57,7 +55,7 @@ void Game::animate(double dt) {
         }
 
         // check collision with all later balls
-        for (auto nestedIt = it + 1; nestedIt != m_balls->end(); ++nestedIt) {
+        for (auto nestedIt = it + 1; nestedIt != m_gameState->getBalls()->end(); ++nestedIt) {
             Ball* ballB = *nestedIt;
             if (ballB == nullptr) continue;
             if (isColliding(ballA, ballB)) {
@@ -89,16 +87,16 @@ void Game::animate(double dt) {
         // move ball due to speed
         ballA->translate(ballA->getVelocity() * dt);
         // apply friction
-        ballA->changeVelocity(-ballA->getVelocity() * m_table->getFriction() * dt);
+        ballA->changeVelocity(-ballA->getVelocity() * m_gameState->getTable()->getFriction() * dt);
     }
 
     // clean up them trash-balls
     for (Ball* b : toBeRemoved) {
         delete b;
         // delete all balls marked with nullptr
-        m_balls->erase(std::find(m_balls->begin(), m_balls->end(), nullptr));
+        m_gameState->getBalls()->erase(std::find(m_gameState->getBalls()->begin(), m_gameState->getBalls()->end(), nullptr));
     }
-    for (Ball* b: toBeAdded) m_balls->push_back(b);
+    for (Ball* b: toBeAdded) m_gameState->getBalls()->push_back(b);
 
     updateShake(dt);
 }
@@ -184,19 +182,15 @@ std::pair<QVector2D, QVector2D> Game::resolveCollision(Ball* ballA, Ball* ballB)
 }
 
 Memento* Game::saveToMemento() {
-    GameState* state = new GameState(m_balls,m_table);
-    Memento* memento = new Memento(state);
+    Memento* memento = new Memento(m_gameState);
     return memento;
 }
 
 void Game::restoreFromMemento(Memento *memento) {
     State* state = memento->m_state;
-    GameState* gameState = dynamic_cast<GameState*>(state);
-
-    delete m_table;
-    for (auto b : *m_balls) delete b;
-    delete m_balls;
-
-    m_table = gameState->getTable();
-    m_balls = gameState->getBalls();
+    if(GameState* gameState = dynamic_cast<GameState*>(state)) {
+        m_gameState->UpdateState(gameState);
+    } else {
+        std::cerr << "Game:Restore warning! This memento is invalid" << std::endl;
+    }
 }
