@@ -252,7 +252,9 @@ DIST          = ../Poolgame/config.json \
 		../Poolgame/mouseeventable.h \
 		../Poolgame/state.h \
 		../Poolgame/memento.h \
-		../Poolgame/caretaker.h ../Poolgame/main.cpp \
+		../Poolgame/caretaker.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h ../Poolgame/main.cpp \
 		../Poolgame/dialog.cpp \
 		../Poolgame/stageonefactory.cpp \
 		../Poolgame/ball.cpp \
@@ -640,7 +642,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h ../Poolgame/state.h ../Poolgame/memento.h ../Poolgame/caretaker.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Poolgame/dialog.h ../Poolgame/abstractstagefactory.h ../Poolgame/stageonefactory.h ../Poolgame/ball.h ../Poolgame/table.h ../Poolgame/game.h ../Poolgame/gamebuilder.h ../Poolgame/utils.h ../Poolgame/stagetwofactory.h ../Poolgame/pocket.h ../Poolgame/stagetwobuilder.h ../Poolgame/balldecorator.h ../Poolgame/mouseeventable.h ../Poolgame/state.h ../Poolgame/memento.h ../Poolgame/caretaker.h ../Poolgame/observable.h ../Poolgame/observer.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../Poolgame/main.cpp ../Poolgame/dialog.cpp ../Poolgame/stageonefactory.cpp ../Poolgame/ball.cpp ../Poolgame/table.cpp ../Poolgame/game.cpp ../Poolgame/gamebuilder.cpp ../Poolgame/stagetwofactory.cpp ../Poolgame/pocket.cpp ../Poolgame/stagetwobuilder.cpp ../Poolgame/balldecorator.cpp ../Poolgame/caretaker.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Poolgame/dialog.ui $(DISTDIR)/
 

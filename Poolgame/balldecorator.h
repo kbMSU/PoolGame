@@ -3,6 +3,8 @@
 #include "ball.h"
 #include "utils.h"
 #include "mouseeventable.h"
+#include "observable.h"
+#include "state.h"
 
 /**
  * @brief The BallDecorator class
@@ -37,7 +39,7 @@ public:
  * The ball will only be able to be controlled if the mouse click&drag event originated at
  * the position of the cue ball.
  */
-class CueBall : public BallDecorator, public MouseEventable {
+class CueBall : public BallDecorator, public MouseEventable, public Observable {
 protected:
     // keep track of where the mouse click started at
     QVector2D m_startMousePos;
@@ -60,6 +62,7 @@ public:
      */
     void render(QPainter &painter, const QVector2D &offset) override;
 
+    virtual void changeVelocity(const QVector2D &delta) override;
 public:
     /**
      * @brief mouseClickEvent - update where the start of the mouse drag is.

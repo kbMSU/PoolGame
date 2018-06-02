@@ -4,13 +4,16 @@
 
 #include "game.h"
 #include "memento.h"
+#include "observer.h"
 
-class Caretaker
+class Caretaker : public Observer
 {
 public:
     Caretaker(Game* game);
     virtual ~Caretaker();
     Game* getGame() {return m_game;}
+public:
+    virtual void Notify(State *state) override;
 private:
     void rewind();
     void fastforward();

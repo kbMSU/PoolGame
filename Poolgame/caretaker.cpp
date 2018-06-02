@@ -2,7 +2,12 @@
 
 Caretaker::Caretaker(Game* game)
     :m_game(game) {
+    // Save initial state
     save();
+    // Set this caretaker to observe the cueball (if one exists)
+    if(CueBall* cb = m_game->getCueBall()) {
+        cb->AttachObserver(this);
+    }
 }
 
 Caretaker::~Caretaker() {
@@ -37,4 +42,9 @@ void Caretaker::save() {
 
     m_savedStates.push_back(m_game->saveToMemento());
     m_currentStateIndex = m_savedStates.size() - 1;
+}
+
+void Caretaker::Notify(State *state) {
+    // TODO
+    std::cout << "Notify" << std::endl;
 }

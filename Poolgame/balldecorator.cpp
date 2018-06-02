@@ -10,6 +10,15 @@ void CueBall::render(QPainter &painter, const QVector2D &offset) {
     }
 }
 
+void CueBall::changeVelocity(const QVector2D &delta) {
+    bool oldState = isSubBallMoving();
+    BallDecorator::changeVelocity(delta);
+    bool newState = isSubBallMoving();
+    if(newState == false && oldState != newState) {
+        Notify(new CueBallState(true));
+    }
+}
+
 void CueBall::mouseClickEvent(QMouseEvent* e) {
 
     QVector2D p = QVector2D(e->pos());

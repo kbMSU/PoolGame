@@ -34,8 +34,8 @@ private:
     void updateShake(double dt);
 public:
     ~Game();
-    Game(std::vector<Ball*>* balls, Table* table) :
-        m_gameState(new GameState(balls,table)) {}
+    Game(std::vector<Ball*>* balls, Table* table,int stage) :
+        m_gameState(new GameState(balls,table,stage)) {}
     /**
      * @brief Draws all owned objects to the screen (balls and table)
      * @param painter - qtpainter to blit to screen with
@@ -96,4 +96,6 @@ public:
     Memento* saveToMemento();
 
     void restoreFromMemento(Memento* memento);
+
+    CueBall* getCueBall();
 };

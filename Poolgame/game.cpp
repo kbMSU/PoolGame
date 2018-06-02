@@ -194,3 +194,14 @@ void Game::restoreFromMemento(Memento *memento) {
         std::cerr << "Game:Restore warning! This memento is invalid" << std::endl;
     }
 }
+
+CueBall* Game::getCueBall() {
+    // If it is not atleast stage 2 then the cueball does not exist
+    if(m_gameState->getStage() < 2)
+        return nullptr;
+    else {
+        // Patrick's code (in StageTwoBuilder) is such that the first ball is always the cueball
+        // Since we are supposed to minimize changes to the received code, i have not changed this.
+        return dynamic_cast<CueBall*>(m_gameState->getBalls()->front());
+    }
+}

@@ -53,7 +53,9 @@ HEADERS += \
     mouseeventable.h \
     state.h \
     memento.h \
-    caretaker.h
+    caretaker.h \
+    observable.h \
+    observer.h
 
 FORMS += \
         dialog.ui
