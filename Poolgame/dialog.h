@@ -37,6 +37,9 @@ public slots:
     void mouseReleaseEvent(QMouseEvent* event);
     // qt mouse move
     void mouseMoveEvent(QMouseEvent* event);
+
+    // qt key release
+    void keyReleaseEvent(QKeyEvent *event);
 private:
     /**
      * @brief evalAllEventsOfTypeSpecified - for each of the functions in the event queue

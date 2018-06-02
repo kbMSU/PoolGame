@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <QKeyEvent>
 
 #include "game.h"
 #include "memento.h"
@@ -12,6 +13,7 @@ public:
     Caretaker(Game* game);
     virtual ~Caretaker();
     Game* getGame() {return m_game;}
+    void processKeyRelease(QKeyEvent *event);
 public:
     virtual void Notify(State *state) override;
 private:

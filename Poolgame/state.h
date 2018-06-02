@@ -35,9 +35,9 @@ public:
     }
 private:
     void clearState() {
-        delete m_table;
+        /*delete m_table;
         for (auto b : *m_balls) delete b;
-        delete m_balls;
+        delete m_balls;*/
     }
 private:
     std::vector<Ball*>* m_balls;

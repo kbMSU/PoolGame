@@ -41,10 +41,27 @@ void Caretaker::save() {
     }
 
     m_savedStates.push_back(m_game->saveToMemento());
+    foreach (Memento* m, m_savedStates) {
+        GameState* g = dynamic_cast<GameState*>(m->getState());
+        std::cout << g->getBalls()->front()->getPosition().x() << ", " << g->getBalls()->front()->getPosition().y() << std::endl;
+    }
+    std::cout << "" << std::endl;
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 
 void Caretaker::Notify(State *state) {
-    // TODO
-    std::cout << "Notify" << std::endl;
+    save();
+}
+
+void Caretaker::processKeyRelease(QKeyEvent *event) {
+    switch (event->key()) {
+    case Qt::Key_R:
+        rewind();
+        break;
+    case Qt::Key_F:
+        fastforward();
+        break;
+    default:
+        break;
+    }
 }

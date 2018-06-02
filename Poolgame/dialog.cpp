@@ -60,6 +60,10 @@ void Dialog::mouseMoveEvent(QMouseEvent* event) {
     evalAllEventsOfTypeSpecified(MouseEventable::EVENTS::MouseMoveFn, event);
 }
 
+void Dialog::keyReleaseEvent(QKeyEvent *event) {
+    m_caretaker->processKeyRelease(event);
+}
+
 void Dialog::evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent *event) {
     // handle all the clicky events, and remove them if they've xPIRED
     MouseEventable::EventQueue& Qu = m_caretaker->getGame()->getEventFns();
