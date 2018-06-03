@@ -186,8 +186,8 @@ Memento* Game::saveToMemento() {
     return memento;
 }
 
-void Game::restoreFromMemento(Memento *memento) {
-    State* state = memento->m_state;
+void Game::restoreFromMemento(std::unique_ptr<Memento> memento) {
+    State* state = memento->getState();
     if(GameState* gameState = dynamic_cast<GameState*>(state)) {
         m_gameState->UpdateState(gameState);
     } else {

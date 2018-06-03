@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "observer.h"
-#include "state.h"
+#include "notification.h"
 
 class Observable
 {
@@ -26,9 +26,9 @@ public:
         if(it != m_observers.end())
             m_observers.erase(it);
     }
-    virtual void Notify(State* state) {
+    virtual void Notify(Notification* notification) {
         foreach (Observer* o, m_observers) {
-            o->Notify(state);
+            o->Notify(notification);
         }
     }
 private:

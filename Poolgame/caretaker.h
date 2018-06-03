@@ -15,14 +15,14 @@ public:
     Game* getGame() {return m_game;}
     void processKeyRelease(QKeyEvent *event);
 public:
-    virtual void Notify(State *state) override;
+    virtual void Notify(Notification *notification) override;
 private:
     void rewind();
     void fastforward();
     void save();
 private:
     Game* m_game;
-    std::vector<Memento*> m_savedStates;
+    std::vector<std::unique_ptr<Memento>> m_savedStates;
     int m_currentStateIndex = -1;
 };
 

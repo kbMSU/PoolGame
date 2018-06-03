@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "mouseeventable.h"
 #include "observable.h"
-#include "state.h"
+#include "notification.h"
 
 /**
  * @brief The BallDecorator class

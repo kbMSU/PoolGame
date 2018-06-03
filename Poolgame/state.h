@@ -44,24 +44,3 @@ private:
     Table* m_table;
     int m_stage;
 };
-
-class CueBallState : public State
-{
-public:
-    CueBallState(bool canBeHit): State(), m_canBeHit(canBeHit) {}
-    virtual ~CueBallState() {}
-
-    bool getCanBeHit() {return m_canBeHit;}
-    void setCanBeHit(bool canBeHit) {m_canBeHit = canBeHit;}
-
-    virtual void UpdateState(State *state) override {
-        if(CueBallState* state = dynamic_cast<CueBallState*>(state)) {
-            m_canBeHit = state->getCanBeHit();
-        } else {
-            std::cerr << "CueBallState:UpdateState warning! This state object is invalid" << std::endl;
-        }
-    }
-
-private:
-    bool m_canBeHit;
-};

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "state.h"
+#include "notification.h"
 
 class Observer
 {
 public:
     Observer() {}
-    virtual void Notify(State* state) = 0;
+    virtual void Notify(Notification* notification) = 0;
 };

@@ -55,7 +55,8 @@ HEADERS += \
     memento.h \
     caretaker.h \
     observable.h \
-    observer.h
+    observer.h \
+    notification.h
 
 FORMS += \
         dialog.ui

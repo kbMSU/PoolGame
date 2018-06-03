@@ -15,7 +15,7 @@ void CueBall::changeVelocity(const QVector2D &delta) {
     BallDecorator::changeVelocity(delta);
     bool newState = isSubBallMoving();
     if(newState == false && oldState != newState) {
-        Notify(new CueBallState(true));
+        Notify(new CueBallStoppedNotification());
     }
 }
 

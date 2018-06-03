@@ -95,7 +95,7 @@ public:
 
     Memento* saveToMemento();
 
-    void restoreFromMemento(Memento* memento);
+    void restoreFromMemento(std::unique_ptr<Memento> memento);
 
     CueBall* getCueBall();
 };

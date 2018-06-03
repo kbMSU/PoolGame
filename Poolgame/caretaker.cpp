@@ -12,7 +12,7 @@ Caretaker::Caretaker(Game* game)
 
 Caretaker::~Caretaker() {
     delete m_game;
-    for (auto s : m_savedStates) delete s;
+    //for (auto s : m_savedStates) delete s;
 }
 
 void Caretaker::rewind() {
@@ -20,7 +20,7 @@ void Caretaker::rewind() {
         return;
 
     m_currentStateIndex--;
-    m_game->restoreFromMemento(m_savedStates[m_currentStateIndex]);
+    m_game->restoreFromMemento(std::move(m_savedStates[m_currentStateIndex]));
 }
 
 void Caretaker::fastforward() {
@@ -28,29 +28,33 @@ void Caretaker::fastforward() {
         return;
 
     m_currentStateIndex++;
-    m_game->restoreFromMemento(m_savedStates[m_currentStateIndex]);
+    m_game->restoreFromMemento(std::move(m_savedStates[m_currentStateIndex]));
 }
 
 void Caretaker::save() {
     // If we have rewinded and any have future states,
     // get rid of them from the history
     while(m_currentStateIndex < m_savedStates.size() - 1) {
-        Memento* state = m_savedStates[m_savedStates.size() - 1];
+        //Memento* state = m_savedStates[m_savedStates.size() - 1];
         m_savedStates.pop_back();
-        delete state;
+        //delete state;
     }
 
-    m_savedStates.push_back(m_game->saveToMemento());
-    foreach (Memento* m, m_savedStates) {
+    m_savedStates.push_back(std::unique_ptr<Memento>(m_game->saveToMemento()));
+
+    /*foreach (std::unique_ptr<Memento> m, m_savedStates) {
         GameState* g = dynamic_cast<GameState*>(m->getState());
         std::cout << g->getBalls()->front()->getPosition().x() << ", " << g->getBalls()->front()->getPosition().y() << std::endl;
     }
-    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;*/
+
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 
-void Caretaker::Notify(State *state) {
-    save();
+void Caretaker::Notify(Notification *notification) {
+    if(CueBallStoppedNotification* c = dynamic_cast<CueBallStoppedNotification*>(notification)) {
+        save();
+    }
 }
 
 void Caretaker::processKeyRelease(QKeyEvent *event) {
