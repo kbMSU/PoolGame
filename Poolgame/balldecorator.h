@@ -16,6 +16,8 @@ protected:
     Ball* m_subBall;
 public:
     BallDecorator(Ball* b) : m_subBall(b) {}
+    BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
+    Ball* getSubBall() { return m_subBall; }
     virtual ~BallDecorator() { delete m_subBall; }
     // mess of forwarded requests
     // is this the downside of a decorator..?

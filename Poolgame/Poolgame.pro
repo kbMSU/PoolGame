@@ -35,7 +35,8 @@ SOURCES += \
     pocket.cpp \
     stagetwobuilder.cpp \
     balldecorator.cpp \
-    caretaker.cpp
+    caretaker.cpp \
+    state.cpp
 
 HEADERS += \
         dialog.h \

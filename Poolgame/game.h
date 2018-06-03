@@ -93,9 +93,9 @@ public:
      */
     MouseEventable::EventQueue& getEventFns() { return m_mouseEventFunctions; }
 
-    Memento* saveToMemento();
+    std::unique_ptr<Memento> saveToMemento();
 
-    void restoreFromMemento(std::unique_ptr<Memento> memento);
+    void restoreFromMemento(Memento* memento);
 
     CueBall* getCueBall();
 };

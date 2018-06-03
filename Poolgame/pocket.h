@@ -15,6 +15,9 @@ class Pocket
     size_t m_sunk = 0;
 public:
     Pocket(double radius, QVector2D pos) : m_radius(radius), m_pos(pos) {}
+    /*Pocket(Pocket& pocket) :
+        m_radius(pocket.getRadius()),m_pos(pocket.getPosition()),
+        m_pocketBrush(pocket.getBrush()),m_sunk(pocket.getSunk()) {}*/
 
     /**
      * @brief render - draw the pocket to the screen with the provided brush and offset
@@ -30,4 +33,9 @@ public:
 
     /** add whether this pocket has sunk a ball */
     void incrementSunk() { ++m_sunk; }
+
+    double getRadius() {return m_radius;}
+    QVector2D getPosition() {return m_pos;}
+    QBrush getBrush() {return m_pocketBrush;}
+    size_t getSunk() {return m_sunk;}
 };
