@@ -6,5 +6,5 @@ class Observer
 {
 public:
     Observer() {}
-    virtual void Notify(Notification* notification) = 0;
+    virtual void Notify(std::unique_ptr<Notification> n) = 0;
 };

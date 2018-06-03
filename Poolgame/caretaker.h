@@ -15,7 +15,7 @@ public:
     Game* getGame() {return m_game;}
     void processKeyRelease(QKeyEvent *event);
 public:
-    virtual void Notify(Notification *notification) override;
+    virtual void Notify(std::unique_ptr<Notification> n) override;
 private:
     void rewind();
     void fastforward();

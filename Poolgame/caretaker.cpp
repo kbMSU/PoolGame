@@ -6,7 +6,7 @@ Caretaker::Caretaker(Game* game)
     save();
     // Set this caretaker to observe the cueball (if one exists)
     if(CueBall* cb = m_game->getCueBall()) {
-        cb->AttachObserver(this);
+        cb->AttachObserver(std::shared_ptr<Caretaker>(this));
     }
 }
 
@@ -42,17 +42,12 @@ void Caretaker::save() {
 
     m_savedStates.push_back(std::unique_ptr<Memento>(m_game->saveToMemento()));
 
-    /*foreach (std::unique_ptr<Memento> m, m_savedStates) {
-        GameState* g = dynamic_cast<GameState*>(m->getState());
-        std::cout << g->getBalls()->front()->getPosition().x() << ", " << g->getBalls()->front()->getPosition().y() << std::endl;
-    }
-    std::cout << "" << std::endl;*/
-
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 
-void Caretaker::Notify(Notification *notification) {
-    if(CueBallStoppedNotification* c = dynamic_cast<CueBallStoppedNotification*>(notification)) {
+void Caretaker::Notify(std::unique_ptr<Notification> n) {
+    if(CueBallStoppedNotification* c =
+            dynamic_cast<CueBallStoppedNotification*>(n.get())) {
         save();
     }
 }
