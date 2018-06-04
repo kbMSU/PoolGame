@@ -182,7 +182,7 @@ std::pair<QVector2D, QVector2D> Game::resolveCollision(Ball* ballA, Ball* ballB)
 }
 
 std::unique_ptr<Memento> Game::saveToMemento() {
-    return std::unique_ptr<Memento>(new Memento(m_gameState));
+    return std::unique_ptr<Memento>(new Memento(m_gameState->Duplicate()));
 }
 
 void Game::restoreFromMemento(Memento* memento) {
@@ -199,8 +199,14 @@ CueBall* Game::getCueBall() {
     if(m_gameState->getStage() < 2)
         return nullptr;
     else {
-        // Patrick's code (in StageTwoBuilder) is such that the first ball is always the cueball
-        // Since we are supposed to minimize changes to the received code, i have not changed this.
-        return dynamic_cast<CueBall*>(m_gameState->getBalls()->front());
+        for(std::vector<Ball*>::iterator it = m_gameState->getBalls()->begin();
+            it != m_gameState->getBalls()->end(); ++it) {
+            if(CueBall* cb = dynamic_cast<CueBall*>((*it))) {
+                return cb;
+            }
+        }
+        //Ball* b = m_gameState->getBalls()->front();
+        //return dynamic_cast<CueBall*>(b);
+        return nullptr;
     }
 }

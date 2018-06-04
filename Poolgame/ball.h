@@ -22,10 +22,12 @@ public:
         m_brush(colour), m_pos(position), m_velocity(velocity),
         m_mass(mass), m_radius(radius) {}
     Ball() {}
-    /*Ball(Ball& ball) :
+    Ball(Ball& ball) :
         m_brush(ball.getBrush()), m_pos(ball.getPosition()),
         m_velocity(ball.getVelocity()), m_mass(ball.getMass()),
-        m_radius(ball.getRadius()) {}*/
+        m_radius(ball.getRadius()) {}
+
+    virtual Ball* duplicate() = 0;
 
     /**
      * @brief render - draw the ball to the screen
@@ -67,7 +69,10 @@ public:
     StageOneBall(QColor colour, QVector2D position,
                  QVector2D velocity, double mass, int radius) :
         Ball(colour, position, velocity, mass, radius) {}
-    //StageOneBall(StageOneBall& ball) : Ball(ball) {}
+    StageOneBall(StageOneBall& ball) : Ball(ball) {}
+
+    virtual Ball* duplicate() override { return new StageOneBall(*this); }
+
     /**
      * @brief render - draw the ball to the screen
      * @param painter - QPainter that is owned by the dialog
@@ -86,10 +91,15 @@ public:
     CompositeBall(QColor colour, QVector2D position,
                  QVector2D velocity, double mass, int radius, double strength) :
         Ball(colour, position, velocity, mass, radius), m_strength(strength) { }
-    /*CompositeBall(CompositeBall& ball) :
-        Ball(ball), m_strength(ball.getStrength()),
-        m_renderChildren(ball.getRenderChildren()),
-        m_children(ball.getChildren()) {}*/
+    CompositeBall(CompositeBall& ball) :
+        Ball(ball), m_renderChildren(ball.getRenderChildren()), m_strength(ball.getStrength()) {
+        for(std::vector<Ball*>::iterator it = ball.getChildren().begin();
+            it != ball.getChildren().end(); ++it) {
+            m_children.push_back((*it)->duplicate());
+        }
+    }
+
+    virtual Ball* duplicate() override { return new CompositeBall(*this); }
 
     bool getRenderChildren() { return m_renderChildren; }
     double getStrength() { return m_strength; }

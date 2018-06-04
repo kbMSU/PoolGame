@@ -41,12 +41,12 @@ void Caretaker::save() {
     }
 
     m_savedStates.push_back(m_game->saveToMemento());
-    for(int i=0; i<m_savedStates.size(); i++) {
+    /*for(int i=0; i<m_savedStates.size(); i++) {
         GameState *gs = dynamic_cast<GameState*>(m_savedStates[i]->getState());
         Ball* b =gs->getBalls()->front();
         std::cout << b->getPosition().x() << ", " << b->getPosition().y() << std::endl;
     }
-    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;*/
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 

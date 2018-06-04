@@ -17,6 +17,12 @@ protected:
 public:
     BallDecorator(Ball* b) : m_subBall(b) {}
     BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
+    BallDecorator(BallDecorator& b) {
+        m_subBall = b.duplicate();
+    }
+
+    virtual Ball* duplicate() override { return new BallDecorator(*this); }
+
     Ball* getSubBall() { return m_subBall; }
     virtual ~BallDecorator() { delete m_subBall; }
     // mess of forwarded requests
@@ -55,6 +61,12 @@ protected:
 
 public:
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
+    CueBall(CueBall& b) :
+        BallDecorator(b), MouseEventable(this), isDragging(b.isDragging),
+        m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos) {}
+
+    virtual Ball* duplicate() override { return new CueBall(*this); }
+
     ~CueBall() {}
 
     /**
@@ -108,6 +120,10 @@ protected:
     std::vector<Sparkle> m_sparklePositions;
 public:
     BallSparkleDecorator(Ball* b) : BallDecorator(b) {}
+    BallSparkleDecorator(BallSparkleDecorator& b) :
+        BallDecorator(b), m_sparklePositions(b.m_sparklePositions) {}
+
+    virtual Ball* duplicate() override { return new BallSparkleDecorator(*this); }
 
     /**
      * @brief render - draw the underlying ball and also the sparkles
@@ -139,6 +155,10 @@ protected:
     void addCrumbs(QPointF cPos);
 public:
     BallSmashDecorator(Ball* b) : BallDecorator(b) {}
+    BallSmashDecorator(BallSmashDecorator& b) :
+        BallDecorator(b), m_crumbs(b.m_crumbs) {}
+
+    virtual Ball* duplicate() override { return new BallSmashDecorator(*this); }
 
     /**
      * @brief changeVelocity - set the velocity of the ball, as well as generate particles (if applicable)

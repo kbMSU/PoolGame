@@ -18,9 +18,12 @@ public:
     Table(int width, int height, QColor colour, double friction) :
         m_width(width), m_height(height),
         m_brush(colour), m_friction(friction) {}
-    /*Table(Table& table) :
+    Table(Table& table) :
         m_width(table.getWidth()), m_height(table.getHeight()),
-        m_brush(table.getBrush()), m_friction(table.getFriction()) {}*/
+        m_brush(table.getBrush()), m_friction(table.getFriction()) {}
+
+    virtual Table* duplicate() = 0;
+
     /**
      * @brief render - draw the table to screen using the specified painter
      * @param painter - painter to use
@@ -40,7 +43,9 @@ class StageOneTable : public Table
 public:
     StageOneTable(int width, int height, QColor colour, double friction) :
         Table(width, height, colour, friction) {}
-    /*StageOneTable(StageOneTable& table) : Table(table) {}*/
+    StageOneTable(StageOneTable& table) : Table(table) {}
+
+    virtual Table* duplicate() override { return new StageOneTable(*this); }
 
     /**
      * @brief render - draw the stageonetable to screen using the specified painter
@@ -56,8 +61,15 @@ protected:
 public:
     StageTwoTable(int width, int height, QColor colour, double friction) :
         Table(width, height, colour, friction) {}
-    /*StageTwoTable(StageTwoTable& table) :
-        Table(table), m_pockets(table.getPockets()) {}*/
+    StageTwoTable(StageTwoTable& table) :
+        Table(table) {
+        for(std::vector<Pocket*>::iterator it = table.getPockets().begin();
+            it != table.getPockets().end(); ++it) {
+            m_pockets.push_back((*it)->duplicate());
+        }
+    }
+
+    virtual Table* duplicate() override { return new StageTwoTable(*this); }
 
     ~StageTwoTable();
 

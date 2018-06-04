@@ -15,9 +15,11 @@ class Pocket
     size_t m_sunk = 0;
 public:
     Pocket(double radius, QVector2D pos) : m_radius(radius), m_pos(pos) {}
-    /*Pocket(Pocket& pocket) :
+    Pocket(Pocket& pocket) :
         m_radius(pocket.getRadius()),m_pos(pocket.getPosition()),
-        m_pocketBrush(pocket.getBrush()),m_sunk(pocket.getSunk()) {}*/
+        m_pocketBrush(pocket.getBrush()),m_sunk(pocket.getSunk()) {}
+
+    virtual Pocket* duplicate() { return new Pocket(*this); }
 
     /**
      * @brief render - draw the pocket to the screen with the provided brush and offset

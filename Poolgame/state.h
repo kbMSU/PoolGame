@@ -10,6 +10,7 @@ class State
 public:
     State() {}
     virtual ~State() {}
+    virtual State* Duplicate() = 0;
     virtual void UpdateState(State* state) = 0;
 };
 
@@ -17,9 +18,12 @@ class GameState : public State
 {
 public:
     GameState(std::vector<Ball*>* balls, Table* table, int stage)
-        :State(),m_balls(balls),m_table(table),m_stage(stage) {}
+        :State(),m_balls(balls),m_table(table),m_stage(stage) {
+        std::cout << "Gamestate : constructor" << std::endl;
+    }
+    GameState(GameState& state);
 
-    //GameState(GameState& state);
+    virtual State* Duplicate() override { return new GameState(*this); }
 
     virtual ~GameState() {clearState();}
 
