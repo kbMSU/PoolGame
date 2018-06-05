@@ -22,6 +22,7 @@ void CueBall::changeVelocity(const QVector2D &delta) {
 
 void CueBall::mouseClickEvent(QMouseEvent* e) {
 
+    std::cerr << "mouse click\n";
     QVector2D p = QVector2D(e->pos());
 
     // don't allow movement if moving

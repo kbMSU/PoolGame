@@ -12,7 +12,6 @@ Caretaker::Caretaker(Game* game)
 
 Caretaker::~Caretaker() {
     delete m_game;
-    //for (auto s : m_savedStates) delete s;
 }
 
 void Caretaker::rewind() {
@@ -24,7 +23,7 @@ void Caretaker::rewind() {
 }
 
 void Caretaker::fastforward() {
-    if(m_currentStateIndex >= m_savedStates.size()-1)
+    if(m_currentStateIndex >= int(m_savedStates.size())-1)
         return;
 
     m_currentStateIndex++;
@@ -34,19 +33,17 @@ void Caretaker::fastforward() {
 void Caretaker::save() {
     // If we have rewinded and any have future states,
     // get rid of them from the history
-    while(m_currentStateIndex < m_savedStates.size() - 1) {
-        //Memento* state = m_savedStates[m_savedStates.size() - 1];
+    while(m_currentStateIndex < int(m_savedStates.size()) - 1) {
         m_savedStates.pop_back();
-        //delete state;
     }
 
     m_savedStates.push_back(m_game->saveToMemento());
-    /*for(int i=0; i<m_savedStates.size(); i++) {
+    for(int i=0; i<m_savedStates.size(); i++) {
         GameState *gs = dynamic_cast<GameState*>(m_savedStates[i]->getState());
         Ball* b =gs->getBalls()->front();
         std::cout << b->getPosition().x() << ", " << b->getPosition().y() << std::endl;
     }
-    std::cout << "" << std::endl;*/
+    std::cout << "" << std::endl;
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 

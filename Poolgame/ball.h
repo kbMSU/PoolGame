@@ -92,10 +92,9 @@ public:
                  QVector2D velocity, double mass, int radius, double strength) :
         Ball(colour, position, velocity, mass, radius), m_strength(strength) { }
     CompositeBall(CompositeBall& ball) :
-        Ball(ball), m_renderChildren(ball.getRenderChildren()), m_strength(ball.getStrength()) {
-        for(std::vector<Ball*>::iterator it = ball.getChildren().begin();
-            it != ball.getChildren().end(); ++it) {
-            m_children.push_back((*it)->duplicate());
+        Ball(ball), m_children(), m_renderChildren(ball.getRenderChildren()), m_strength(ball.getStrength()) {
+        for (Ball* b : ball.getChildren()) {
+            m_children.push_back(b->duplicate());
         }
     }
 

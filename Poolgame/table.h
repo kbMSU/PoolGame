@@ -62,10 +62,9 @@ public:
     StageTwoTable(int width, int height, QColor colour, double friction) :
         Table(width, height, colour, friction) {}
     StageTwoTable(StageTwoTable& table) :
-        Table(table) {
-        for(std::vector<Pocket*>::iterator it = table.getPockets().begin();
-            it != table.getPockets().end(); ++it) {
-            m_pockets.push_back((*it)->duplicate());
+        Table(table), m_pockets() {
+        for (Pocket* p : table.getPockets()) {
+            m_pockets.push_back(p->duplicate());
         }
     }
 

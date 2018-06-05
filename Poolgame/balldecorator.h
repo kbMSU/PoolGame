@@ -18,10 +18,12 @@ public:
     BallDecorator(Ball* b) : m_subBall(b) {}
     BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
     BallDecorator(BallDecorator& b) {
-        m_subBall = b.duplicate();
+        m_subBall = b.getSubBall()->duplicate();
     }
 
-    virtual Ball* duplicate() override { return new BallDecorator(*this); }
+    virtual Ball* duplicate() override {
+        return new BallDecorator(*this);
+    }
 
     Ball* getSubBall() { return m_subBall; }
     virtual ~BallDecorator() { delete m_subBall; }
@@ -62,10 +64,12 @@ protected:
 public:
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
     CueBall(CueBall& b) :
-        BallDecorator(b), MouseEventable(this), isDragging(b.isDragging),
-        m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos) {}
+        BallDecorator(b), MouseEventable(this),
+        m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos), isDragging(b.isDragging) {}
 
-    virtual Ball* duplicate() override { return new CueBall(*this); }
+    virtual Ball* duplicate() override {
+        return new CueBall(*this);
+    }
 
     ~CueBall() {}
 
@@ -130,7 +134,7 @@ public:
      * @param painter - the brush to use to draw
      * @param offset - the offset that this ball is from the origin
      */
-    void render(QPainter &painter, const QVector2D &offset);
+    void render(QPainter &painter, const QVector2D &offset) override;
 };
 
 class BallSmashDecorator : public BallDecorator {

@@ -18,6 +18,7 @@ public:
     Pocket(Pocket& pocket) :
         m_radius(pocket.getRadius()),m_pos(pocket.getPosition()),
         m_pocketBrush(pocket.getBrush()),m_sunk(pocket.getSunk()) {}
+    virtual ~Pocket() {}
 
     virtual Pocket* duplicate() { return new Pocket(*this); }
 

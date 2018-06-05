@@ -196,7 +196,7 @@ void Game::restoreFromMemento(Memento* memento) {
 
 CueBall* Game::getCueBall() {
     // If it is not atleast stage 2 then the cueball does not exist
-    if(m_gameState->getStage() < 2)
+    /*if(m_gameState->getStage() < 2)
         return nullptr;
     else {
         for(std::vector<Ball*>::iterator it = m_gameState->getBalls()->begin();
@@ -205,8 +205,12 @@ CueBall* Game::getCueBall() {
                 return cb;
             }
         }
-        //Ball* b = m_gameState->getBalls()->front();
-        //return dynamic_cast<CueBall*>(b);
         return nullptr;
+    }*/
+    for(Ball* b : * (m_gameState->getBalls())) {
+        if(CueBall* cb = dynamic_cast<CueBall*>(b)) {
+            return cb;
+        }
     }
+    return nullptr;
 }
