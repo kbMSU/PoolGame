@@ -28,12 +28,7 @@ public:
     Ball(Ball& ball) :
         m_brush(ball.getBrush()), m_pos(ball.getPosition()),
         m_velocity(ball.getVelocity()), m_mass(ball.getMass()),
-        m_radius(ball.getRadius()) {
-        /*std::vector<std::shared_ptr<Observer>> observers = ball.getObservers();
-        for(std::shared_ptr<Observer> o : observers) {
-            AttachObserver(o);
-        }*/
-    }
+        m_radius(ball.getRadius()) {}
 
     virtual Ball* duplicate() = 0;
     virtual bool isCueBall() { return false; }

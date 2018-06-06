@@ -19,6 +19,7 @@ public:
 private:
     void rewind();
     void fastforward();
+    void restore();
     void save();
 private:
     Game* m_game;

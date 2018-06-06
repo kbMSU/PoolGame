@@ -22,9 +22,7 @@ class GameState : public State
 {
 public:
     GameState(std::vector<Ball*>* balls, Table* table, int stage)
-        :State(),m_balls(balls),m_table(table),m_stage(stage) {
-        std::cout << "Gamestate : constructor" << std::endl;
-    }
+        :State(),m_balls(balls),m_table(table),m_stage(stage) {}
     GameState(GameState& state);
 
     virtual State* Duplicate() override { return new GameState(*this); }
@@ -55,6 +53,7 @@ private:
 private:
     std::vector<Ball*>* m_balls;
     Table* m_table;
+    // store the functions that get scanned through whenever a mouse event happens
     MouseEventable::EventQueue m_mouseEventFunctions;
     int m_stage;
 };

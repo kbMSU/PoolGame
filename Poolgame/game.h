@@ -13,6 +13,7 @@
 #include "memento.h"
 
 class Game {
+    // stores the state of the game
     GameState* m_gameState;
 
     // screenshake stuff
@@ -24,9 +25,6 @@ class Game {
     /* increase the amount of screen shake */
     void incrementShake(double amount=SCREENSHAKEDIST) { m_shakeRadius += amount; }
 private:
-    // store the functions that get scanned through whenever a mouse event happens
-    //MouseEventable::EventQueue m_mouseEventFunctions;
-
     /**
      * @brief updateShake - update the screenshake radius (make it smaller)
      * @param dt - the timestep change

@@ -7,7 +7,7 @@ GameState::GameState(GameState &state)
     for(Ball* b : (* (state).getBalls()) ) {
         m_balls->push_back(b->duplicate());
     }
-    std::cout << "Gamestate : Copy constructor" << std::endl;
+    //std::cout << "Gamestate : Copy constructor" << std::endl;
 }
 
 void GameState::UpdateState(State *state) {
