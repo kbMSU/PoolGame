@@ -97,5 +97,5 @@ public:
 
     void restoreFromMemento(Memento* memento);
 
-    CueBall* getCueBall();
+    Ball* getCueBall();
 };

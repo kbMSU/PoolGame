@@ -4,8 +4,10 @@
 #include <cmath>
 #include <QPainter>
 #include <QVector2D>
+#include "observable.h"
+#include "notification.h"
 
-class Ball {
+class Ball : public Observable {
 protected:
     QBrush m_brush;
     QVector2D m_pos;
@@ -28,6 +30,9 @@ public:
         m_radius(ball.getRadius()) {}
 
     virtual Ball* duplicate() = 0;
+    virtual bool isCueBall() {
+        return false;
+    }
 
     /**
      * @brief render - draw the ball to the screen
@@ -46,7 +51,7 @@ public:
      * @brief changeVelocity - modify speed by a constant amount
      * @param delta - change in velocity (x,y)
      */
-    virtual void changeVelocity(const QVector2D& delta) { m_velocity += delta; }
+    virtual void changeVelocity(const QVector2D& delta); //{ m_velocity += delta; }
     /**
      * @brief multiplyVelocity - apply vector multiplicatively
      * @param vel - vector
@@ -72,6 +77,9 @@ public:
     StageOneBall(StageOneBall& ball) : Ball(ball) {}
 
     virtual Ball* duplicate() override { return new StageOneBall(*this); }
+    virtual bool isCueBall() override {
+        return false;
+    }
 
     /**
      * @brief render - draw the ball to the screen
@@ -99,6 +107,9 @@ public:
     }
 
     virtual Ball* duplicate() override { return new CompositeBall(*this); }
+    virtual bool isCueBall() override {
+        return false;
+    }
 
     bool getRenderChildren() { return m_renderChildren; }
     double getStrength() { return m_strength; }

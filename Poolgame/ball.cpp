@@ -1,6 +1,16 @@
 #include "ball.h"
 #include <iostream>
 
+void Ball::changeVelocity(const QVector2D &delta) {
+    //bool oldState = getVelocity().length() > MovementEpsilon;
+    m_velocity += delta;
+    /*bool newState = getVelocity().length() > MovementEpsilon;
+    if(newState == false && oldState != newState) {
+        std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
+        Notify(std::move(notification));
+    }*/
+}
+
 void StageOneBall::render(QPainter &painter, const QVector2D& offset) {
     // use our colour
     painter.setBrush(m_brush);

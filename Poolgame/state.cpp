@@ -16,10 +16,6 @@ void GameState::UpdateState(State *state) {
         m_table = gameState->getTable()->duplicate();
         m_stage = gameState->getStage();
         m_balls = new std::vector<Ball*>();
-        /*for(std::vector<Ball*>::iterator it = gameState->getBalls()->begin();
-            it != gameState->getBalls()->end(); ++it) {
-            m_balls->push_back((*it)->duplicate());
-        }*/
         for(Ball* b : * ((gameState)->getBalls())) {
             m_balls->push_back(b->duplicate());
         }

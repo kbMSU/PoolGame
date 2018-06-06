@@ -5,7 +5,7 @@ Caretaker::Caretaker(Game* game)
     // Save initial state
     save();
     // Set this caretaker to observe the cueball (if one exists)
-    if(CueBall* cb = m_game->getCueBall()) {
+    if(Ball* cb = m_game->getCueBall()) {
         cb->AttachObserver(std::shared_ptr<Caretaker>(this));
     }
 }

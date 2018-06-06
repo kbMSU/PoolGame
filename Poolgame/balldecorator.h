@@ -3,8 +3,6 @@
 #include "ball.h"
 #include "utils.h"
 #include "mouseeventable.h"
-#include "observable.h"
-#include "notification.h"
 
 /**
  * @brief The BallDecorator class
@@ -23,6 +21,9 @@ public:
 
     virtual Ball* duplicate() override {
         return new BallDecorator(*this);
+    }
+    virtual bool isCueBall() override {
+        return m_subBall->isCueBall();
     }
 
     Ball* getSubBall() { return m_subBall; }
@@ -49,7 +50,7 @@ public:
  * The ball will only be able to be controlled if the mouse click&drag event originated at
  * the position of the cue ball.
  */
-class CueBall : public BallDecorator, public MouseEventable, public Observable {
+class CueBall : public BallDecorator, public MouseEventable {
 protected:
     // keep track of where the mouse click started at
     QVector2D m_startMousePos;
@@ -69,6 +70,9 @@ public:
 
     virtual Ball* duplicate() override {
         return new CueBall(*this);
+    }
+    virtual bool isCueBall() override {
+        return true;
     }
 
     ~CueBall() {}
@@ -128,6 +132,9 @@ public:
         BallDecorator(b), m_sparklePositions(b.m_sparklePositions) {}
 
     virtual Ball* duplicate() override { return new BallSparkleDecorator(*this); }
+    virtual bool isCueBall() override {
+        return m_subBall->isCueBall();
+    }
 
     /**
      * @brief render - draw the underlying ball and also the sparkles
@@ -163,6 +170,9 @@ public:
         BallDecorator(b), m_crumbs(b.m_crumbs) {}
 
     virtual Ball* duplicate() override { return new BallSmashDecorator(*this); }
+    virtual bool isCueBall() override {
+        return m_subBall->isCueBall();
+    }
 
     /**
      * @brief changeVelocity - set the velocity of the ball, as well as generate particles (if applicable)
