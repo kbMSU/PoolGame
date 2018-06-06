@@ -21,8 +21,8 @@ public:
 class GameState : public State
 {
 public:
-    GameState(std::vector<Ball*>* balls, Table* table, int stage)
-        :State(),m_balls(balls),m_table(table),m_stage(stage) {}
+    GameState(std::vector<Ball*>* balls, Table* table)
+        :State(),m_balls(balls),m_table(table) {}
     GameState(GameState& state);
 
     virtual State* Duplicate() override { return new GameState(*this); }
@@ -33,6 +33,8 @@ public:
     Table* getTable() {return m_table;}
     int getStage() {return m_stage;}
     MouseEventable::EventQueue& getEventFns() {return m_mouseEventFunctions;}
+
+    void setStage(int stage) {m_stage = stage;}
 
     /**
      * @brief addMouseFunctions - append all of the specified functions to be
@@ -55,5 +57,5 @@ private:
     Table* m_table;
     // store the functions that get scanned through whenever a mouse event happens
     MouseEventable::EventQueue m_mouseEventFunctions;
-    int m_stage;
+    int m_stage = 1;
 };

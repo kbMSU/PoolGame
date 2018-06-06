@@ -260,7 +260,7 @@ Game* StageTwoBuilder::getResult() {
     Ball* bumpBall = m_buildingBalls->at(ind);
     m_buildingBalls->at(ind) = new BallSmashDecorator(bumpBall);
 
-    Game* retGame = new Game(m_buildingBalls, m_buildingTable, 2);
+    Game* retGame = new Game(m_buildingBalls, m_buildingTable);
     // register all the mouse functions for the cueball
     retGame->addMouseFunctions(cb->getEvents());
 

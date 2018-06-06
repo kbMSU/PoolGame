@@ -32,8 +32,8 @@ private:
     void updateShake(double dt);
 public:
     ~Game();
-    Game(std::vector<Ball*>* balls, Table* table,int stage) :
-        m_gameState(new GameState(balls,table,stage)) {}
+    Game(std::vector<Ball*>* balls, Table* table) :
+        m_gameState(new GameState(balls,table)) {}
     /**
      * @brief Draws all owned objects to the screen (balls and table)
      * @param painter - qtpainter to blit to screen with
@@ -82,7 +82,6 @@ public:
      * @param fns
      */
     void addMouseFunctions(MouseEventable::EventQueue fns) {
-        //std::copy(fns.begin(), fns.end(), std::back_inserter(m_mouseEventFunctions));
         m_gameState->addMouseFunctions(fns);
     }
 
@@ -97,4 +96,8 @@ public:
     void restoreFromMemento(Memento* memento);
 
     Ball* getCueBall();
+
+    int getStage() { return m_gameState->getStage(); }
+
+    void setStage(int stage) { m_gameState->setStage(stage); }
 };

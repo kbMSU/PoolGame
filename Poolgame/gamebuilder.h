@@ -51,9 +51,13 @@ public:
 class GameDirector {
     GameBuilder* m_builder;
     const QJsonObject* m_conf;
+    int m_stage = 1;
 public:
     ~GameDirector() { delete m_builder; /* ): json object is owned by other */ }
     GameDirector(QJsonObject* conf) : m_conf(conf) {}
+
+    void setStage(int stage) { m_stage = stage; }
+
     /**
      * @brief setBuilder - change which builder should be used for construction
      * @param newBuilder - the new builder

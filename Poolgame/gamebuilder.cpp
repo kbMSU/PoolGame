@@ -28,7 +28,7 @@ Game* GameBuilder::getResult() {
         throw std::invalid_argument("builder finished with no table supplied");
     }
 
-    Game* retGame = new Game(m_buildingBalls, m_buildingTable, 1);
+    Game* retGame = new Game(m_buildingBalls, m_buildingTable);
     // need to reset for when we build next
     m_buildingBalls = nullptr;
     m_buildingTable = nullptr;
@@ -62,5 +62,8 @@ Game* GameDirector::createGame() {
         m_builder->addBall(t);
     }
 
-    return m_builder->getResult();
+    Game* game = m_builder->getResult();
+    game->setStage(m_stage);
+
+    return game;
 }

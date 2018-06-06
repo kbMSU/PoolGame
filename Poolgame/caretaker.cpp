@@ -2,6 +2,11 @@
 
 Caretaker::Caretaker(Game* game)
     :m_game(game) {
+
+    // Saving states are only needed if we are in stage 3
+    if(m_game->getStage() < 3)
+        return;
+
     // Save initial state
     save();
     // Set this caretaker to observe the cueball (if one exists)
