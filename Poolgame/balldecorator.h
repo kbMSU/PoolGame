@@ -12,6 +12,9 @@
 class BallDecorator : public Ball {
 protected:
     Ball* m_subBall;
+
+    // whether we can consider this ball as having stopped.
+    inline bool isSubBallMoving() const { return m_subBall->getVelocity().length() > MovementEpsilon; }
 public:
     BallDecorator(Ball* b) : m_subBall(b) {}
     BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
@@ -58,9 +61,6 @@ protected:
     QVector2D m_endMousePos;
     // whether the drag is happening
     bool isDragging = false;
-
-    // whether we can consider this ball as having stopped.
-    inline bool isSubBallMoving() const { return m_subBall->getVelocity().length() > MovementEpsilon; }
 
 public:
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
@@ -142,6 +142,8 @@ public:
      * @param offset - the offset that this ball is from the origin
      */
     void render(QPainter &painter, const QVector2D &offset) override;
+
+    virtual void changeVelocity(const QVector2D &delta) override;
 };
 
 class BallSmashDecorator : public BallDecorator {

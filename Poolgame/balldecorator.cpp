@@ -95,6 +95,16 @@ void BallSparkleDecorator::render(QPainter &painter, const QVector2D &offset) {
     }
 }
 
+void BallSparkleDecorator::changeVelocity(const QVector2D &delta) {
+    bool oldState = isSubBallMoving();
+    BallDecorator::changeVelocity(delta);
+    bool newState = isSubBallMoving();
+    if(newState == false && oldState != newState) {
+        std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
+        Notify(std::move(notification));
+    }
+}
+
 void BallSmashDecorator::addCrumbs(QPointF cPos) {
     size_t numAdding = rand() % 10;
     for (size_t i = 0; i < numAdding; ++i) {
@@ -108,7 +118,13 @@ void BallSmashDecorator::addCrumbs(QPointF cPos) {
 void BallSmashDecorator::changeVelocity(const QVector2D &delta) {
     // whenever our velocity changes a lot, we should add some particles
     QVector2D preVel = m_subBall->getVelocity();
+    bool oldState = isSubBallMoving();
     m_subBall->changeVelocity(delta);
+    bool newState = isSubBallMoving();
+    if(newState == false && oldState != newState) {
+        std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
+        Notify(std::move(notification));
+    }
     double lenChange = fabs((preVel - m_subBall->getVelocity()).length());
     if (lenChange > 3.0) addCrumbs(m_subBall->getPosition().toPointF());
 }
