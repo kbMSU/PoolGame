@@ -63,14 +63,13 @@ protected:
     bool isDragging = false;
 
 public:
+    virtual ~CueBall() {}
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
     CueBall(CueBall& b) : BallDecorator(b), MouseEventable(this), m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos), isDragging(b.isDragging) {}
 
     virtual Ball* duplicate() override { return new CueBall(*this); }
     virtual bool isCueBall() override { return true; }
     virtual CueBall* getCueBall() override { return this; }
-
-    ~CueBall() {}
 
     /**
      * @brief render - draw this ball and the drag indicator if applicable
@@ -80,6 +79,10 @@ public:
     void render(QPainter &painter, const QVector2D &offset) override;
 
     virtual void changeVelocity(const QVector2D &delta) override;
+
+    virtual void multiplyVelocity(const QVector2D &vel) override;
+
+    virtual void setVelocity(QVector2D v) override;
 public:
     /**
      * @brief mouseClickEvent - update where the start of the mouse drag is.
@@ -101,6 +104,8 @@ public:
      * @param e - the mouse event caused by clicking
      */
     virtual void mouseReleaseEvent(QMouseEvent* e) override;
+private:
+    void checkStateChange();
 };
 
 class BallSparkleDecorator : public BallDecorator {
@@ -122,6 +127,7 @@ protected:
     // our particle effects that will be drawn per frame
     std::vector<Sparkle> m_sparklePositions;
 public:
+    virtual ~BallSparkleDecorator() {}
     BallSparkleDecorator(Ball* b) : BallDecorator(b) {}
     BallSparkleDecorator(BallSparkleDecorator& b) :
         BallDecorator(b), m_sparklePositions(b.m_sparklePositions) {}
@@ -159,6 +165,7 @@ protected:
 
     void addCrumbs(QPointF cPos);
 public:
+    virtual ~BallSmashDecorator() {}
     BallSmashDecorator(Ball* b) : BallDecorator(b) {}
     BallSmashDecorator(BallSmashDecorator& b) :
         BallDecorator(b), m_crumbs(b.m_crumbs) {}

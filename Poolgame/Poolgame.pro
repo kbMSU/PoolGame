@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += qml quick
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -64,7 +65,8 @@ FORMS += \
 
 DISTFILES += \
     config.json \
-    config.json
+    config.json \
+    signup.qml
 
 copyconfig.depends = ../Poolgame/config.json
 copyconfig.commands = \

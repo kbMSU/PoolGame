@@ -13,8 +13,24 @@ void CueBall::render(QPainter &painter, const QVector2D &offset) {
 void CueBall::changeVelocity(const QVector2D &delta) {
     bool oldState = isSubBallMoving();
     BallDecorator::changeVelocity(delta);
+    if(oldState) checkStateChange();
+}
+
+void CueBall::multiplyVelocity(const QVector2D &vel) {
+    bool oldState = isSubBallMoving();
+    BallDecorator::multiplyVelocity(vel);
+    if(oldState) checkStateChange();
+}
+
+void CueBall::setVelocity(QVector2D v) {
+    bool oldState = isSubBallMoving();
+    BallDecorator::setVelocity(v);
+    if(oldState) checkStateChange();
+}
+
+void CueBall::checkStateChange() {
     bool newState = isSubBallMoving();
-    if(newState == false && oldState != newState) {
+    if(newState == false) {
         std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
         Notify(std::move(notification));
     }

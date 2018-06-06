@@ -19,7 +19,7 @@ protected:
     // if movement is slower than this, then we're considered at a stand-still
     static constexpr double MovementEpsilon = 1;
 public:
-    virtual ~Ball() {}
+    virtual ~Ball() { }
     Ball(QColor colour, QVector2D position,
          QVector2D velocity, double mass, int radius) :
         m_brush(colour), m_pos(position), m_velocity(velocity),
@@ -50,7 +50,7 @@ public:
      * @brief changeVelocity - modify speed by a constant amount
      * @param delta - change in velocity (x,y)
      */
-    virtual void changeVelocity(const QVector2D& delta); //{ m_velocity += delta; }
+    virtual void changeVelocity(const QVector2D& delta) { m_velocity += delta; }
     /**
      * @brief multiplyVelocity - apply vector multiplicatively
      * @param vel - vector
@@ -70,6 +70,7 @@ public:
 
 class StageOneBall : public Ball {
 public:
+    virtual ~StageOneBall() {}
     StageOneBall(QColor colour, QVector2D position,
                  QVector2D velocity, double mass, int radius) :
         Ball(colour, position, velocity, mass, radius) {}
@@ -92,6 +93,7 @@ protected:
     // default is unbreakable (i.e. inf str)
     double m_strength = std::numeric_limits<double>::max();
 public:
+    virtual ~CompositeBall() {}
     CompositeBall(QColor colour, QVector2D position,
                  QVector2D velocity, double mass, int radius, double strength) :
         Ball(colour, position, velocity, mass, radius), m_strength(strength) { }

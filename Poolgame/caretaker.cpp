@@ -8,10 +8,11 @@ Caretaker::Caretaker(Game* game)
         return;
 
     // Save initial state
-    save();
+    save();    
+
     // Set this caretaker to observe the cueball (if one exists)
     if(Ball* cb = m_game->getCueBall()) {
-        cb->AttachObserver(std::shared_ptr<Caretaker>(this));
+        cb->AttachObserver(this);
     }
 }
 
@@ -38,7 +39,7 @@ void Caretaker::fastforward() {
 void Caretaker::restore() {
     m_game->restoreFromMemento(m_savedStates[m_currentStateIndex].get());
     if(Ball* cb = m_game->getCueBall()) {
-        cb->AttachObserver(std::shared_ptr<Caretaker>(this));
+        cb->AttachObserver(this);
     }
 }
 

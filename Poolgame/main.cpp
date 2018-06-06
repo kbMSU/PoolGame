@@ -54,6 +54,11 @@ int main(int argc, char *argv[])
 
     // display our dialog that contains our game and run
     QApplication a(argc, argv);
+
+    /*QQuickView *view = new QQuickView;
+    view->setSource(QUrl::fromLocalFile("signup.qml"));
+    view->show();*/
+
     Dialog w(game, nullptr);
     w.show();
 

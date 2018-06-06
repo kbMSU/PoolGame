@@ -65,6 +65,6 @@ private:
     /**
      * @brief m_caretaker - the caretaker for the game
      */
-    Caretaker* m_caretaker = nullptr;
+    Caretaker* m_caretaker;
 };
 

@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_QUICK_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../Poolgame -I. -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib
+INCPATH       = -I../Poolgame -I. -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQml.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib
 QMAKE         = /Users/Karthik/Qt5.9.4/5.9.4/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = Poolgame1.0.0
 DISTDIR = /Users/Karthik/Documents/University/2018Sem1/info9220/PoolGame/build-Poolgame-Desktop_Qt_5_9_4_clang_64bit-Debug/.tmp/Poolgame1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib -framework QtQuick -framework QtQml -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -79,6 +79,7 @@ OBJECTS       = main.o \
 		moc_dialog.o
 DIST          = ../Poolgame/config.json \
 		../Poolgame/config.json \
+		../Poolgame/signup.qml \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/qdevice.pri \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/device_config.prf \
@@ -448,8 +449,11 @@ Makefile: ../Poolgame/Poolgame.pro /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/yacc.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/lex.prf \
 		../Poolgame/Poolgame.pro \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/QtQuick.prl \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/QtGui.prl \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQml.framework/QtQml.prl \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -o Makefile ../Poolgame/Poolgame.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_pre.prf:
@@ -613,8 +617,11 @@ Makefile: ../Poolgame/Poolgame.pro /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/yacc.prf:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/lex.prf:
 ../Poolgame/Poolgame.pro:
+/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/QtQuick.prl:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/QtGui.prl:
+/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQml.framework/QtQml.prl:
+/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
 /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../Poolgame/Poolgame.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
@@ -695,13 +702,16 @@ moc_dialog.cpp: /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/He
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/game.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/abstractstagefactory.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
@@ -712,9 +722,6 @@ moc_dialog.cpp: /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/He
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		../Poolgame/caretaker.h \
@@ -722,7 +729,7 @@ moc_dialog.cpp: /Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/He
 		../Poolgame/dialog.h \
 		moc_predefs.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/bin/moc
-	/Users/Karthik/Qt5.9.4/5.9.4/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang -I/Users/Karthik/Documents/University/2018Sem1/info9220/PoolGame/Poolgame -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib ../Poolgame/dialog.h -o moc_dialog.cpp
+	/Users/Karthik/Qt5.9.4/5.9.4/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/macx-clang -I/Users/Karthik/Documents/University/2018Sem1/info9220/PoolGame/Poolgame -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQml.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtNetwork.framework/Headers -I/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib ../Poolgame/dialog.h -o moc_dialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -753,13 +760,16 @@ main.o: ../Poolgame/main.cpp ../Poolgame/dialog.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/game.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/abstractstagefactory.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
@@ -770,9 +780,6 @@ main.o: ../Poolgame/main.cpp ../Poolgame/dialog.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		../Poolgame/caretaker.h \
@@ -799,13 +806,16 @@ dialog.o: ../Poolgame/dialog.cpp ../Poolgame/dialog.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/game.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/abstractstagefactory.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
@@ -816,9 +826,6 @@ dialog.o: ../Poolgame/dialog.cpp ../Poolgame/dialog.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		../Poolgame/caretaker.h \
@@ -835,8 +842,13 @@ stageonefactory.o: ../Poolgame/stageonefactory.cpp ../Poolgame/stageonefactory.h
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -852,8 +864,13 @@ ball.o: ../Poolgame/ball.cpp ../Poolgame/ball.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ball.o ../Poolgame/ball.cpp
 
 table.o: ../Poolgame/table.cpp ../Poolgame/table.h \
@@ -868,7 +885,12 @@ table.o: ../Poolgame/table.cpp ../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qbrush.h \
 		../Poolgame/ball.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QPoint \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o table.o ../Poolgame/table.cpp
 
 game.o: ../Poolgame/game.cpp ../Poolgame/game.h \
@@ -884,6 +906,9 @@ game.o: ../Poolgame/game.cpp ../Poolgame/game.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -893,9 +918,6 @@ game.o: ../Poolgame/game.cpp ../Poolgame/game.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
@@ -910,8 +932,13 @@ gamebuilder.o: ../Poolgame/gamebuilder.cpp ../Poolgame/gamebuilder.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -922,14 +949,9 @@ gamebuilder.o: ../Poolgame/gamebuilder.cpp ../Poolgame/gamebuilder.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../Poolgame/game.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
@@ -943,8 +965,13 @@ stagetwofactory.o: ../Poolgame/stagetwofactory.cpp ../Poolgame/stagetwofactory.h
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -973,8 +1000,13 @@ stagetwobuilder.o: ../Poolgame/stagetwobuilder.cpp ../Poolgame/stagetwobuilder.h
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -985,14 +1017,9 @@ stagetwobuilder.o: ../Poolgame/stagetwobuilder.cpp ../Poolgame/stagetwobuilder.h
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
 		../Poolgame/game.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonArray \
@@ -1005,15 +1032,15 @@ balldecorator.o: ../Poolgame/balldecorator.cpp ../Poolgame/balldecorator.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
-		../Poolgame/utils.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
-		../Poolgame/mouseeventable.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
 		../Poolgame/observable.h \
 		../Poolgame/observer.h \
-		../Poolgame/notification.h
+		../Poolgame/notification.h \
+		../Poolgame/utils.h \
+		../Poolgame/mouseeventable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o balldecorator.o ../Poolgame/balldecorator.cpp
 
 caretaker.o: ../Poolgame/caretaker.cpp ../Poolgame/caretaker.h \
@@ -1031,6 +1058,9 @@ caretaker.o: ../Poolgame/caretaker.cpp ../Poolgame/caretaker.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
@@ -1040,9 +1070,6 @@ caretaker.o: ../Poolgame/caretaker.cpp ../Poolgame/caretaker.h \
 		../Poolgame/balldecorator.h \
 		../Poolgame/utils.h \
 		../Poolgame/mouseeventable.h \
-		../Poolgame/observable.h \
-		../Poolgame/observer.h \
-		../Poolgame/notification.h \
 		../Poolgame/memento.h \
 		../Poolgame/state.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o caretaker.o ../Poolgame/caretaker.cpp
@@ -1053,14 +1080,22 @@ state.o: ../Poolgame/state.cpp ../Poolgame/state.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QPainter \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QVector2D \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qvector2d.h \
+		../Poolgame/observable.h \
+		../Poolgame/observer.h \
+		../Poolgame/notification.h \
 		../Poolgame/table.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QColor \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qcolor.h \
 		../Poolgame/pocket.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/QBrush \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qbrush.h
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtGui.framework/Headers/qbrush.h \
+		../Poolgame/balldecorator.h \
+		../Poolgame/utils.h \
+		../Poolgame/mouseeventable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o state.o ../Poolgame/state.cpp
 
 moc_dialog.o: moc_dialog.cpp 
