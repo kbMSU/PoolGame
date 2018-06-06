@@ -3,6 +3,7 @@
 #include <QPoint>
 #include <cmath>
 #include <QPainter>
+#include <QMouseEvent>
 #include <QVector2D>
 #include "observable.h"
 #include "notification.h"
@@ -27,12 +28,15 @@ public:
     Ball(Ball& ball) :
         m_brush(ball.getBrush()), m_pos(ball.getPosition()),
         m_velocity(ball.getVelocity()), m_mass(ball.getMass()),
-        m_radius(ball.getRadius()) {}
+        m_radius(ball.getRadius()) {
+        /*std::vector<std::shared_ptr<Observer>> observers = ball.getObservers();
+        for(std::shared_ptr<Observer> o : observers) {
+            AttachObserver(o);
+        }*/
+    }
 
     virtual Ball* duplicate() = 0;
-    virtual bool isCueBall() {
-        return false;
-    }
+    virtual bool isCueBall() { return false; }
 
     /**
      * @brief render - draw the ball to the screen
@@ -77,9 +81,6 @@ public:
     StageOneBall(StageOneBall& ball) : Ball(ball) {}
 
     virtual Ball* duplicate() override { return new StageOneBall(*this); }
-    virtual bool isCueBall() override {
-        return false;
-    }
 
     /**
      * @brief render - draw the ball to the screen
@@ -107,9 +108,6 @@ public:
     }
 
     virtual Ball* duplicate() override { return new CompositeBall(*this); }
-    virtual bool isCueBall() override {
-        return false;
-    }
 
     bool getRenderChildren() { return m_renderChildren; }
     double getStrength() { return m_strength; }

@@ -31,6 +31,8 @@ public:
             o->Notify(std::move(n));
         }
     }
-private:
+
+    std::vector<std::shared_ptr<Observer>> getObservers() {return m_observers;}
+protected:
     std::vector<std::shared_ptr<Observer>> m_observers;
 };

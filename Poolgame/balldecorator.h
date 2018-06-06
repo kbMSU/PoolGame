@@ -18,15 +18,15 @@ protected:
 public:
     BallDecorator(Ball* b) : m_subBall(b) {}
     BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
-    BallDecorator(BallDecorator& b) {
-        m_subBall = b.getSubBall()->duplicate();
-    }
+    BallDecorator(BallDecorator& b) { m_subBall = b.getSubBall()->duplicate(); }
 
-    virtual Ball* duplicate() override {
-        return new BallDecorator(*this);
-    }
-    virtual bool isCueBall() override {
-        return m_subBall->isCueBall();
+    virtual Ball* duplicate() override { return new BallDecorator(*this); }
+    virtual bool isCueBall() override { return m_subBall->isCueBall(); }
+    virtual BallDecorator* getCueBall() {
+        if(BallDecorator* bd = dynamic_cast<BallDecorator*>(m_subBall))
+            return bd->getCueBall();
+        else
+            return nullptr;
     }
 
     Ball* getSubBall() { return m_subBall; }
@@ -64,16 +64,11 @@ protected:
 
 public:
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
-    CueBall(CueBall& b) :
-        BallDecorator(b), MouseEventable(this),
-        m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos), isDragging(b.isDragging) {}
+    CueBall(CueBall& b) : BallDecorator(b), MouseEventable(this), m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos), isDragging(b.isDragging) {}
 
-    virtual Ball* duplicate() override {
-        return new CueBall(*this);
-    }
-    virtual bool isCueBall() override {
-        return true;
-    }
+    virtual Ball* duplicate() override { return new CueBall(*this); }
+    virtual bool isCueBall() override { return true; }
+    virtual CueBall* getCueBall() override { return this; }
 
     ~CueBall() {}
 
@@ -132,9 +127,6 @@ public:
         BallDecorator(b), m_sparklePositions(b.m_sparklePositions) {}
 
     virtual Ball* duplicate() override { return new BallSparkleDecorator(*this); }
-    virtual bool isCueBall() override {
-        return m_subBall->isCueBall();
-    }
 
     /**
      * @brief render - draw the underlying ball and also the sparkles
@@ -172,9 +164,6 @@ public:
         BallDecorator(b), m_crumbs(b.m_crumbs) {}
 
     virtual Ball* duplicate() override { return new BallSmashDecorator(*this); }
-    virtual bool isCueBall() override {
-        return m_subBall->isCueBall();
-    }
 
     /**
      * @brief changeVelocity - set the velocity of the ball, as well as generate particles (if applicable)

@@ -20,6 +20,9 @@ void Caretaker::rewind() {
 
     m_currentStateIndex--;
     m_game->restoreFromMemento(m_savedStates[m_currentStateIndex].get());
+    if(Ball* cb = m_game->getCueBall()) {
+        cb->AttachObserver(std::shared_ptr<Caretaker>(this));
+    }
 }
 
 void Caretaker::fastforward() {
@@ -28,6 +31,9 @@ void Caretaker::fastforward() {
 
     m_currentStateIndex++;
     m_game->restoreFromMemento(m_savedStates[m_currentStateIndex].get());
+    if(Ball* cb = m_game->getCueBall()) {
+        cb->AttachObserver(std::shared_ptr<Caretaker>(this));
+    }
 }
 
 void Caretaker::save() {

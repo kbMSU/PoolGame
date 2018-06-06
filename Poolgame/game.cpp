@@ -189,39 +189,17 @@ void Game::restoreFromMemento(Memento* memento) {
     State* state = memento->getState();
     if(GameState* gameState = dynamic_cast<GameState*>(state)) {
         m_gameState->UpdateState(gameState);
+
     } else {
         std::cerr << "Game:Restore warning! This memento is invalid" << std::endl;
     }
 }
 
 Ball* Game::getCueBall() {
-    // If it is not atleast stage 2 then the cueball does not exist
-    /*if(m_gameState->getStage() < 2)
-        return nullptr;
-    else {
-        for(std::vector<Ball*>::iterator it = m_gameState->getBalls()->begin();
-            it != m_gameState->getBalls()->end(); ++it) {
-            if(CueBall* cb = dynamic_cast<CueBall*>((*it))) {
-                return cb;
-            }
-        }
-        return nullptr;
-    }*/
-
     for(Ball* b : * (m_gameState->getBalls())) {
         if(b->isCueBall()) {
             return b;
         }
     }
     return nullptr;
-
-    /*
-     * According to Patrick's code that i cannot change (StageTwoBuilder.cpp, line 247-251),
-     * The very first ball (returned by front()) is always the cueball.
-     */
-    /*if(m_gameState->getStage() < 2)
-        return nullptr;
-    else {
-        return dynamic_cast<CueBall*>(m_gameState->getBalls()->front());
-    }*/
 }

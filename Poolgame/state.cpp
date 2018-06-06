@@ -12,12 +12,17 @@ GameState::GameState(GameState &state)
 
 void GameState::UpdateState(State *state) {
     if(GameState *gameState = dynamic_cast<GameState*>(state)) {
-        //clearState();
         m_table = gameState->getTable()->duplicate();
         m_stage = gameState->getStage();
         m_balls = new std::vector<Ball*>();
         for(Ball* b : * ((gameState)->getBalls())) {
-            m_balls->push_back(b->duplicate());
+            Ball* duplicate = b->duplicate();
+            if(duplicate->isCueBall()) {
+                BallDecorator* bd = dynamic_cast<BallDecorator*>(duplicate);
+                CueBall* cb = dynamic_cast<CueBall*>(bd->getCueBall());
+                m_mouseEventFunctions = cb->getEvents();
+            }
+            m_balls->push_back(duplicate);
         }
     } else {
         std::cerr << "GameState:UpdateState warning! This state object is invalid" << std::endl;

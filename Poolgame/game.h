@@ -25,7 +25,7 @@ class Game {
     void incrementShake(double amount=SCREENSHAKEDIST) { m_shakeRadius += amount; }
 private:
     // store the functions that get scanned through whenever a mouse event happens
-    MouseEventable::EventQueue m_mouseEventFunctions;
+    //MouseEventable::EventQueue m_mouseEventFunctions;
 
     /**
      * @brief updateShake - update the screenshake radius (make it smaller)
@@ -84,14 +84,15 @@ public:
      * @param fns
      */
     void addMouseFunctions(MouseEventable::EventQueue fns) {
-        std::copy(fns.begin(), fns.end(), std::back_inserter(m_mouseEventFunctions));
+        //std::copy(fns.begin(), fns.end(), std::back_inserter(m_mouseEventFunctions));
+        m_gameState->addMouseFunctions(fns);
     }
 
     /**
      * @brief getEventFns - get all of our event functions (mouseclicksfns, etc)
      * @return event queue of event functions
      */
-    MouseEventable::EventQueue& getEventFns() { return m_mouseEventFunctions; }
+    MouseEventable::EventQueue& getEventFns() { return m_gameState->getEventFns(); }
 
     std::unique_ptr<Memento> saveToMemento();
 
