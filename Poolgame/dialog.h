@@ -55,6 +55,12 @@ private:
     void startGame();
 
     void showStartScreen();
+
+    void showConfirmBox();
+
+    void showGame();
+
+    void quitGame();
 private:
     /**
      * @brief aTimer - timer for calling nextAnim in intervals
@@ -76,5 +82,9 @@ private:
      * @brief m_startView - the starting screen for the game
      */
     QQuickView* m_startView;
+    /**
+     * @brief m_confirmView - quit confirmation box
+     */
+    QQuickView* m_confirmView;
 };
 

@@ -13,18 +13,22 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     m_caretaker(new Caretaker(game))
 {
     ui->setupUi(this);
-    showStartScreen();
-}
 
-void Dialog::showStartScreen() {
-    QString path = QDir::currentPath() + "../../../../start.qml";
+    QString startPath = QDir::currentPath() + "../../../../start.qml";
     m_startView = new QQuickView;
-    m_startView->setSource(QUrl::fromLocalFile(path));
+    m_startView->setSource(QUrl::fromLocalFile(startPath));
 
-    QObject* item = m_startView->rootObject();
-    QObject::connect(item,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+    QObject* startItem = m_startView->rootObject();
+    QObject::connect(startItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 
-    m_startView->show();
+    QString confirmPath = QDir::currentPath() + "../../../../QuitConfirm.qml";
+    m_confirmView = new QQuickView;
+    m_confirmView->setSource(QUrl::fromLocalFile(confirmPath));
+
+    QObject* confirmItem = m_confirmView->rootObject();
+    QObject::connect(confirmItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+
+    showStartScreen();
 }
 
 void Dialog::startGame() {
@@ -41,7 +45,7 @@ void Dialog::startGame() {
     dTimer->start(drawFrameMS);
 
     // set the window size to be at least the table size
-    this->resize(m_caretaker->getGame()->getMinimumWidth(), m_caretaker->getGame()->getMinimumHeight());
+    this->resize(m_caretaker->getGameSize());
 
     show();
 }
@@ -60,7 +64,7 @@ void Dialog::tryRender() {
 }
 
 void Dialog::nextAnim() {
-    m_caretaker->getGame()->animate(1.0/(double)animFrameMS);
+    m_caretaker->animate(1.0/(double)animFrameMS);
 }
 
 void Dialog::paintEvent(QPaintEvent *)
@@ -80,13 +84,48 @@ void Dialog::mouseMoveEvent(QMouseEvent* event) {
     evalAllEventsOfTypeSpecified(MouseEventable::EVENTS::MouseMoveFn, event);
 }
 
+void Dialog::showStartScreen() {
+    m_startView->show();
+    m_confirmView->hide();
+    hide();
+}
+
+void Dialog::showConfirmBox() {
+    m_confirmView->show();
+    m_startView->hide();
+    hide();
+}
+
+void Dialog::showGame() {
+    show();
+    m_confirmView->hide();
+    m_startView->hide();
+}
+
+void Dialog::quitGame() {
+    m_confirmView->close();
+    m_startView->close();
+    close();
+}
+
 void Dialog::keyReleaseEvent(QKeyEvent *event) {
-    m_caretaker->processKeyRelease(event);
+    switch (event->key()) {
+    case Qt::Key_Q:
+        showConfirmBox();
+        break;
+    default:
+        m_caretaker->processKeyRelease(event);
+        break;
+    }
 }
 
 void Dialog::receiveMessage(const QString& msg) {
     if(msg.toStdString() == "StartGame") {
         startGame();
+    } else if (msg.toStdString() == "CancelQuit") {
+        showGame();
+    } else if (msg.toStdString() == "ConfirmQuit") {
+        quitGame();
     }
 }
 

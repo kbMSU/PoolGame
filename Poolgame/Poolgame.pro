@@ -66,7 +66,8 @@ FORMS += \
 DISTFILES += \
     config.json \
     config.json \
-    start.qml
+    start.qml \
+    QuitConfirm.qml
 
 copyconfig.depends = ../Poolgame/config.json
 copyconfig.commands = \
@@ -75,9 +76,18 @@ copyconfig.commands = \
 first.depends = all copyconfig
 QMAKE_EXTRA_TARGETS += first copyconfig
 
+#Copy the start view to the build directory
 copysignup.depends = ../Poolgame/start.qml
 copysignup.commands = \
         $(COPY_FILE) \"$$shell_path($$PWD\\start.qml)\" .
 
 first.depends = all copysignup
 QMAKE_EXTRA_TARGETS += first copysignup
+
+#Copy the confirm view to the build directory
+copyconfirm.depends = ../Poolgame/QuitConfirm.qml
+copyconfirm.commands = \
+        $(COPY_FILE) \"$$shell_path($$PWD\\QuitConfirm.qml)\" .
+
+first.depends = all copyconfirm
+QMAKE_EXTRA_TARGETS += first copyconfirm

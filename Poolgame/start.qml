@@ -43,6 +43,55 @@ Item {
                 color: "black"
             }
 
+            TextArea {
+                id: highscore
+                text: "Highscore : 0"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                width: 200
+                height: 50
+                color: "black"
+            }
+
+            TextArea {
+                text: "IN-GAME CONTROLS"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "R : Rewind"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "F : Fast Forward"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "M : Menu"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "Q : Quit"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                width: 200
+                height: 20
+                color: "black"
+            }
+
             Button {
                 text: qsTr("Start Game")
                 width: 100
