@@ -14,14 +14,14 @@ Dialog::Dialog(Game *game, QWidget* parent) :
 {
     ui->setupUi(this);
 
-    QString startPath = QDir::currentPath() + "../../../../start.qml";
+    QString startPath = QDir::currentPath() + "../../../../config/start.qml";
     m_startView = new QQuickView;
     m_startView->setSource(QUrl::fromLocalFile(startPath));
 
     QObject* startItem = m_startView->rootObject();
     QObject::connect(startItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 
-    QString confirmPath = QDir::currentPath() + "../../../../QuitConfirm.qml";
+    QString confirmPath = QDir::currentPath() + "../../../../config/QuitConfirm.qml";
     m_confirmView = new QQuickView;
     m_confirmView->setSource(QUrl::fromLocalFile(confirmPath));
 
