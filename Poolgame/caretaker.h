@@ -17,8 +17,10 @@ public:
     virtual ~Caretaker();
     Game* getGame() {return m_game;}
     void processKeyRelease(QKeyEvent *event);
+    void reset();
+    void exportLastSave();
     int getScore() { return m_game->getScore(); }
-    int getHighscore();
+    int getHighscore() { return m_highscore; }
     void saveHighScore();
 
     QSize getGameSize() const { return QSize(m_game->getMinimumWidth(),m_game->getMinimumHeight()); }
@@ -34,5 +36,6 @@ private:
     Game* m_game;
     std::vector<std::unique_ptr<Memento>> m_savedStates;
     int m_currentStateIndex = -1;
+    int m_highscore = 0;
 };
 

@@ -29,6 +29,13 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     QObject* confirmItem = m_confirmView->rootObject();
     QObject::connect(confirmItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 
+    QString menuPath = QDir::currentPath() + "../../../../config/menu.qml";
+    m_menuView = new QQuickView;
+    m_menuView->setSource(QUrl::fromLocalFile(menuPath));
+
+    QObject* menuItem = m_menuView->rootObject();
+    QObject::connect(menuItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+
     showStartScreen();
 }
 
@@ -58,6 +65,8 @@ Dialog::~Dialog()
     delete m_caretaker;
     delete ui;
     delete m_startView;
+    delete m_confirmView;
+    delete m_menuView;
 }
 
 void Dialog::tryRender() {
@@ -88,6 +97,7 @@ void Dialog::mouseMoveEvent(QMouseEvent* event) {
 void Dialog::showStartScreen() {
     m_startView->show();
     m_confirmView->hide();
+    m_menuView->hide();
     hide();
 }
 
@@ -97,6 +107,7 @@ void Dialog::showConfirmBox() {
 
     m_confirmView->show();
     m_startView->hide();
+    m_menuView->hide();
     hide();
 }
 
@@ -104,6 +115,14 @@ void Dialog::showGame() {
     show();
     m_confirmView->hide();
     m_startView->hide();
+    m_menuView->hide();
+}
+
+void Dialog::showMenu() {
+    hide();
+    m_menuView->show();
+    m_startView->hide();
+    m_confirmView->hide();
 }
 
 void Dialog::quitGame() {
@@ -111,6 +130,7 @@ void Dialog::quitGame() {
 
     m_confirmView->close();
     m_startView->close();
+    m_menuView->close();
     close();
 }
 
@@ -118,6 +138,9 @@ void Dialog::keyReleaseEvent(QKeyEvent *event) {
     switch (event->key()) {
     case Qt::Key_Q:
         showConfirmBox();
+        break;
+    case Qt::Key_M:
+        showMenu();
         break;
     default:
         m_caretaker->processKeyRelease(event);
@@ -132,6 +155,14 @@ void Dialog::receiveMessage(const QString& msg) {
         showGame();
     } else if (msg.toStdString() == "ConfirmQuit") {
         quitGame();
+    } else if (msg.toStdString() == "ResetGame") {
+        m_caretaker->reset();
+        showGame();
+    } else if (msg.toStdString() == "Export State") {
+        m_caretaker->exportLastSave();
+        showGame();
+    } else if (msg.toStdString() == "BackMenu") {
+        showGame();
     }
 }
 

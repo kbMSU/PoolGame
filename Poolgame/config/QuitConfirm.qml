@@ -20,7 +20,7 @@ Item {
             anchors.centerIn: parent
 
             TextArea {
-                text: "Are you sure you want to quit ?"
+                text: "Are you sure you want to quit the game ?"
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
             }

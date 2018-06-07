@@ -14,6 +14,15 @@ Caretaker::Caretaker(Game* game)
     if(Ball* cb = m_game->getCueBall()) {
         cb->AttachObserver(this);
     }
+
+    QFile readfile(highscore_path);
+    if(readfile.exists()) {
+        readfile.open(QIODevice::ReadOnly | QIODevice::Text);
+        QString content = readfile.readAll();
+        readfile.close();
+        QJsonObject highscoreObject = QJsonDocument::fromJson(content.toUtf8()).object();
+        m_highscore = highscoreObject.value("highscore").toInt(0);
+    }
 }
 
 Caretaker::~Caretaker() {
@@ -28,6 +37,12 @@ void Caretaker::rewind() {
 
     m_currentStateIndex--;
     restore();
+}
+
+void Caretaker::reset() {
+    while(m_currentStateIndex > 0) {
+        rewind();
+    }
 }
 
 void Caretaker::fastforward() {
@@ -56,6 +71,10 @@ void Caretaker::save() {
     m_currentStateIndex = m_savedStates.size() - 1;
 }
 
+void Caretaker::exportLastSave() {
+
+}
+
 void Caretaker::Notify(std::unique_ptr<Notification> n) {
     if(CueBallStoppedNotification* c = dynamic_cast<CueBallStoppedNotification*>(n.get()))
         save();
@@ -71,19 +90,6 @@ void Caretaker::processKeyRelease(QKeyEvent *event) {
         break;
     default:
         break;
-    }
-}
-
-int Caretaker::getHighscore() {
-    QFile readfile(highscore_path);
-    if(readfile.exists()) {
-        readfile.open(QIODevice::ReadOnly | QIODevice::Text);
-        QString content = readfile.readAll();
-        readfile.close();
-        QJsonObject highscoreObject = QJsonDocument::fromJson(content.toUtf8()).object();
-        return highscoreObject.value("highscore").toInt(0);
-    } else {
-        return 0;
     }
 }
 
