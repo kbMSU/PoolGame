@@ -64,10 +64,9 @@ FORMS += \
         dialog.ui
 
 DISTFILES += \
-    config.json \
-    config.json \
-    start.qml \
-    QuitConfirm.qml
+    config/config.json \
+    config/start.qml \
+    config/QuitConfirm.qml
 
 copyconfig.depends = ../Poolgame/config
 copyconfig.commands = \
