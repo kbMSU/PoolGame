@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <iostream>
 #include <QMouseEvent>
+
 #include "utils.h"
 
 Dialog::Dialog(Game *game, QWidget* parent) :
@@ -12,6 +13,22 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     m_caretaker(new Caretaker(game))
 {
     ui->setupUi(this);
+    showStartScreen();
+}
+
+void Dialog::showStartScreen() {
+    QString path = QDir::currentPath() + "../../../../start.qml";
+    m_startView = new QQuickView;
+    m_startView->setSource(QUrl::fromLocalFile(path));
+
+    QObject* item = m_startView->rootObject();
+    QObject::connect(item,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+
+    m_startView->show();
+}
+
+void Dialog::startGame() {
+    m_startView->hide();
 
     // for animating (i.e. movement, collision) every animFrameMS
     aTimer = new QTimer(this);
@@ -24,7 +41,9 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     dTimer->start(drawFrameMS);
 
     // set the window size to be at least the table size
-    this->resize(game->getMinimumWidth(), game->getMinimumHeight());
+    this->resize(m_caretaker->getGame()->getMinimumWidth(), m_caretaker->getGame()->getMinimumHeight());
+
+    show();
 }
 
 Dialog::~Dialog()
@@ -33,6 +52,7 @@ Dialog::~Dialog()
     delete dTimer;
     delete m_caretaker;
     delete ui;
+    delete m_startView;
 }
 
 void Dialog::tryRender() {
@@ -62,6 +82,12 @@ void Dialog::mouseMoveEvent(QMouseEvent* event) {
 
 void Dialog::keyReleaseEvent(QKeyEvent *event) {
     m_caretaker->processKeyRelease(event);
+}
+
+void Dialog::receiveMessage(const QString& msg) {
+    if(msg.toStdString() == "StartGame") {
+        startGame();
+    }
 }
 
 void Dialog::evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent *event) {

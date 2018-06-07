@@ -7,6 +7,8 @@ Item {
     width: 800
     height: 600
 
+    signal qmlSignal(string msg)
+
     Rectangle {
         width: 800
         height: 600
@@ -16,8 +18,36 @@ Item {
             columns: 1
             anchors.centerIn: parent
 
+            TextArea {
+                text: "Super Mega Awesome Pool !"
+                color: "white"
+                font.pointSize: 30
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "Karthikeyan Balasubramanian"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            TextArea {
+                text: "SID: 460123835"
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                width: 200
+                height: 50
+                color: "black"
+            }
+
             Button {
                 text: qsTr("Start Game")
+                width: 100
+                onClicked: item.qmlSignal("StartGame")
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
     }

@@ -3,6 +3,7 @@
   *     2018/05/18
   */
 
+#include <QObject>
 #include "dialog.h"
 #include "game.h"
 #include "utils.h"
@@ -15,7 +16,8 @@
 #include <QJsonObject>
 #include <ctime>
 #include <QJsonDocument>
-#include <QQuickView>
+#include <QtQuick>
+#include <QtQml>
 #include <QDir>
 
 QJsonObject loadConfig() {
@@ -57,13 +59,7 @@ int main(int argc, char *argv[])
     // display our dialog that contains our game and run
     QApplication a(argc, argv);
 
-    QString path = QDir::currentPath() + "../../../../start.qml";
-    QQuickView *view = new QQuickView;
-    view->setSource(QUrl::fromLocalFile(path));
-    view->show();
-
-    //Dialog w(game, nullptr);
-    //w.show();
+    Dialog w(game, nullptr);
 
     return a.exec();
 }

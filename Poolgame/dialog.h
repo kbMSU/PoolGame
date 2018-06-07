@@ -3,6 +3,7 @@
 #include "ball.h"
 #include "game.h"
 #include "caretaker.h"
+#include <QtQuick>
 
 namespace Ui {
 class Dialog;
@@ -40,6 +41,8 @@ public slots:
 
     // qt key release
     void keyReleaseEvent(QKeyEvent *event);
+
+    void receiveMessage(const QString& msg);
 private:
     /**
      * @brief evalAllEventsOfTypeSpecified - for each of the functions in the event queue
@@ -49,6 +52,9 @@ private:
      */
     void evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent* event);
 
+    void startGame();
+
+    void showStartScreen();
 private:
     /**
      * @brief aTimer - timer for calling nextAnim in intervals
@@ -66,5 +72,9 @@ private:
      * @brief m_caretaker - the caretaker for the game
      */
     Caretaker* m_caretaker;
+    /**
+     * @brief m_startView - the starting screen for the game
+     */
+    QQuickView* m_startView;
 };
 
