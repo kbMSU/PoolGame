@@ -15,6 +15,8 @@
 #include <QJsonObject>
 #include <ctime>
 #include <QJsonDocument>
+#include <QQuickView>
+#include <QDir>
 
 QJsonObject loadConfig() {
     // load json from config file
@@ -55,12 +57,13 @@ int main(int argc, char *argv[])
     // display our dialog that contains our game and run
     QApplication a(argc, argv);
 
-    /*QQuickView *view = new QQuickView;
-    view->setSource(QUrl::fromLocalFile("signup.qml"));
-    view->show();*/
+    QString path = QDir::currentPath() + "../../../../start.qml";
+    QQuickView *view = new QQuickView;
+    view->setSource(QUrl::fromLocalFile(path));
+    view->show();
 
-    Dialog w(game, nullptr);
-    w.show();
+    //Dialog w(game, nullptr);
+    //w.show();
 
     return a.exec();
 }

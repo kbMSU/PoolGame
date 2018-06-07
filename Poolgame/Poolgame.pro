@@ -66,7 +66,7 @@ FORMS += \
 DISTFILES += \
     config.json \
     config.json \
-    signup.qml
+    start.qml
 
 copyconfig.depends = ../Poolgame/config.json
 copyconfig.commands = \
@@ -74,3 +74,10 @@ copyconfig.commands = \
 
 first.depends = all copyconfig
 QMAKE_EXTRA_TARGETS += first copyconfig
+
+copysignup.depends = ../Poolgame/start.qml
+copysignup.commands = \
+        $(COPY_FILE) \"$$shell_path($$PWD\\start.qml)\" .
+
+first.depends = all copysignup
+QMAKE_EXTRA_TARGETS += first copysignup

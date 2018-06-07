@@ -79,7 +79,7 @@ OBJECTS       = main.o \
 		moc_dialog.o
 DIST          = ../Poolgame/config.json \
 		../Poolgame/config.json \
-		../Poolgame/signup.qml \
+		../Poolgame/start.qml \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/qdevice.pri \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/mkspecs/features/device_config.prf \
@@ -671,10 +671,15 @@ distclean: clean
 
 ####### Sub-libraries
 
-first: all copyconfig
+first: all copysignup
 
 copyconfig: ../Poolgame/config.json
 	$(COPY_FILE) "/Users/Karthik/Documents/University/2018Sem1/info9220/PoolGame/Poolgame/config.json" .
+
+first: all copysignup
+
+copysignup: ../Poolgame/start.qml
+	$(COPY_FILE) "/Users/Karthik/Documents/University/2018Sem1/info9220/PoolGame/Poolgame/start.qml" .
 
 mocclean: compiler_moc_header_clean compiler_moc_source_clean
 
@@ -795,7 +800,11 @@ main.o: ../Poolgame/main.cpp ../Poolgame/dialog.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QString \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
-		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsondocument.h
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/Headers/QQuickView \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtQuick.framework/Headers/qquickview.h \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/QDir \
+		/Users/Karthik/Qt5.9.4/5.9.4/clang_64/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Poolgame/main.cpp
 
 dialog.o: ../Poolgame/dialog.cpp ../Poolgame/dialog.h \
