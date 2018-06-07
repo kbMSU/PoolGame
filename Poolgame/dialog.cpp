@@ -19,6 +19,7 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     m_startView->setSource(QUrl::fromLocalFile(startPath));
 
     QObject* startItem = m_startView->rootObject();
+    QQmlProperty::write(startItem, "highscore", m_caretaker->getHighscore());
     QObject::connect(startItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 
     QString confirmPath = QDir::currentPath() + "../../../../config/QuitConfirm.qml";
@@ -91,6 +92,9 @@ void Dialog::showStartScreen() {
 }
 
 void Dialog::showConfirmBox() {
+    QObject* confirmItem = m_confirmView->rootObject();
+    QQmlProperty::write(confirmItem, "score", m_caretaker->getScore());
+
     m_confirmView->show();
     m_startView->hide();
     hide();
@@ -103,6 +107,8 @@ void Dialog::showGame() {
 }
 
 void Dialog::quitGame() {
+    m_caretaker->saveHighScore();
+
     m_confirmView->close();
     m_startView->close();
     close();

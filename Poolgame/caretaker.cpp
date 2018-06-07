@@ -73,3 +73,38 @@ void Caretaker::processKeyRelease(QKeyEvent *event) {
         break;
     }
 }
+
+int Caretaker::getHighscore() {
+    QFile readfile(highscore_path);
+    if(readfile.exists()) {
+        readfile.open(QIODevice::ReadOnly | QIODevice::Text);
+        QString content = readfile.readAll();
+        readfile.close();
+        QJsonObject highscoreObject = QJsonDocument::fromJson(content.toUtf8()).object();
+        return highscoreObject.value("highscore").toInt(0);
+    } else {
+        return 0;
+    }
+}
+
+void Caretaker::saveHighScore() {
+    int score = m_game->getScore();
+
+    QFile readfile(highscore_path);
+    if(readfile.exists()) {
+        readfile.open(QIODevice::ReadOnly | QIODevice::Text);
+        QString content = readfile.readAll();
+        readfile.close();
+        QJsonObject highscoreObject = QJsonDocument::fromJson(content.toUtf8()).object();
+        int highscore = highscoreObject.value("highscore").toInt(0);
+
+        if(score <= highscore)
+            return;
+    }
+
+    std::string content = "{ \"highscore\": " + std::to_string(score) + " }";
+    QFile file(highscore_path);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    file.write(content.c_str());
+    file.close();
+}

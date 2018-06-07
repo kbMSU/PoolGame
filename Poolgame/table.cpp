@@ -38,3 +38,11 @@ bool StageTwoTable::sinks(Ball *b) {
     }
     return false;
 }
+
+int StageTwoTable::getScore() {
+    int score = 0;
+    for(Pocket* p : m_pockets) {
+        score += p->getSunk();
+    }
+    return score;
+}

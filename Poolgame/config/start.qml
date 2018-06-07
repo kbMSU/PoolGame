@@ -6,6 +6,7 @@ Item {
     id: item
     width: 800
     height: 600
+    property int highscore: 0
 
     signal qmlSignal(string msg)
 
@@ -45,7 +46,7 @@ Item {
 
             TextArea {
                 id: highscore
-                text: "Highscore : 0"
+                text: "Highscore : " + item.highscore
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
             }

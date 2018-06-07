@@ -66,7 +66,8 @@ FORMS += \
 DISTFILES += \
     config/config.json \
     config/start.qml \
-    config/QuitConfirm.qml
+    config/QuitConfirm.qml \
+    config/menu.qml
 
 copyconfig.depends = ../Poolgame/config
 copyconfig.commands = \

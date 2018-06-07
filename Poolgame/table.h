@@ -23,6 +23,7 @@ public:
         m_brush(table.getBrush()), m_friction(table.getFriction()) {}
 
     virtual Table* duplicate() = 0;
+    virtual int getScore() { return 0; }
 
     /**
      * @brief render - draw the table to screen using the specified painter
@@ -73,6 +74,8 @@ public:
     ~StageTwoTable();
 
     std::vector<Pocket*> getPockets() {return m_pockets;}
+
+    virtual int getScore() override;
 
     /**
      * @brief render - draw the stageonetable to screen using the specified painter

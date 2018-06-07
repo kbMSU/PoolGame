@@ -100,4 +100,6 @@ public:
     int getStage() { return m_gameState->getStage(); }
 
     void setStage(int stage) { m_gameState->setStage(stage); }
+
+    int getScore() { return m_gameState->getTable()->getScore(); }
 };

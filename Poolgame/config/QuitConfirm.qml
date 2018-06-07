@@ -8,6 +8,7 @@ Item {
     height: 600
 
     signal qmlSignal(string msg)
+    property int score: 0
 
     Rectangle {
         width: 800
@@ -19,9 +20,27 @@ Item {
             anchors.centerIn: parent
 
             TextArea {
-                text: "Are you sure you want to quit"
+                text: "Are you sure you want to quit ?"
                 color: "white"
                 anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                width: 200
+                height: 10
+                color: "black"
+            }
+
+            TextArea {
+                text: "Your current score is : " + item.score
+                color: "white"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Rectangle {
+                width: 200
+                height: 10
+                color: "black"
             }
 
             GridLayout {
