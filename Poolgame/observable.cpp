@@ -1,10 +1,10 @@
 #include "observable.h"
 
-void Observable::AttachObserver(Observer *o) {
+void Observable::attachObserver(Observer *o) {
     m_observers.push_back(o);
 }
 
-void Observable::DetachObserver(Observer *o) {
+void Observable::detachObserver(Observer *o) {
     std::vector<Observer*>::iterator it;
     for(it = m_observers.begin(); it != m_observers.end(); ++it) {
         if((*it) == o) {
@@ -15,8 +15,8 @@ void Observable::DetachObserver(Observer *o) {
         m_observers.erase(it);
 }
 
-void Observable::Notify(std::unique_ptr<Notification> n) {
+void Observable::notify(std::unique_ptr<Notification> n) {
     for (Observer* o : m_observers) {
-        o->Notify(std::move(n));
+        o->notify(std::move(n));
     }
 }

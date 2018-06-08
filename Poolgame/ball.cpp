@@ -1,7 +1,7 @@
 #include "ball.h"
 #include <iostream>
 
-std::string Ball::ExportState() {
+std::string Ball::exportState() {
     std::string content = "";
     content += "{\"position\": {\"x\":"+std::to_string(m_pos.x())+",\"y\":"+std::to_string(m_pos.y())+"},";
     content += "\"velocity\": {\"x\":"+std::to_string(m_velocity.x())+",\"y\":"+std::to_string(m_velocity.y())+"},";
@@ -11,7 +11,7 @@ std::string Ball::ExportState() {
     return content;
 }
 
-std::string CompositeBall::ExportState() {
+std::string CompositeBall::exportState() {
     std::string content = "";
     content += "{\"position\": {\"x\":"+std::to_string(m_pos.x())+",\"y\":"+std::to_string(m_pos.y())+"},";
     content += "\"velocity\": {\"x\":"+std::to_string(m_velocity.x())+",\"y\":"+std::to_string(m_velocity.y())+"},";
@@ -28,7 +28,7 @@ std::string CompositeBall::ExportState() {
         content += ",\n\"balls\": [\n";
         int size = m_children.size();
         for(int i=0;i<size;i++) {
-            content += m_children[i]->ExportState();
+            content += m_children[i]->exportState();
             if(i < size - 1) {
                 content += ",\n";
             }

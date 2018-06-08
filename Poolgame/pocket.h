@@ -30,7 +30,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the pocket
      * @return state as a string
      */
-    virtual std::string ExportState();
+    virtual std::string exportState();
 
     /**
      * @brief render - draw the pocket to the screen with the provided brush and offset

@@ -46,7 +46,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the ball
      * @return state as a string
      */
-    virtual std::string ExportState();
+    virtual std::string exportState();
 
     /**
      * @brief render - draw the ball to the screen
@@ -133,7 +133,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the ball
      * @return state as a string
      */
-    virtual std::string ExportState() override;
+    virtual std::string exportState() override;
 
     bool getRenderChildren() { return m_renderChildren; }
     double getStrength() { return m_strength; }

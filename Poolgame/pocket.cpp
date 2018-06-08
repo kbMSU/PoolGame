@@ -18,7 +18,7 @@ void Pocket::render(QPainter &painter, const QVector2D &offset) {
     painter.setPen(oldPen);
 }
 
-std::string Pocket::ExportState() {
+std::string Pocket::exportState() {
     std::string content = "{ \"position\": ";
     content += "{ \"x\":" + std::to_string(m_pos.x()) + ", \"y\":" + std::to_string(m_pos.y()) + " }";
     content += " }\n";

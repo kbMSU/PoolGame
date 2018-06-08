@@ -36,7 +36,7 @@ void CueBall::checkStateChange() {
     // If the ball has stopped, time to save a memento. Notify the observer.
     if(newState == false) {
         std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
-        Notify(std::move(notification));
+        notify(std::move(notification));
     }
 }
 
@@ -121,7 +121,7 @@ void BallSparkleDecorator::changeVelocity(const QVector2D &delta) {
     bool newState = isSubBallMoving();
     if(newState == false && oldState != newState) {
         std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
-        Notify(std::move(notification));
+        notify(std::move(notification));
     }
 }
 
@@ -143,7 +143,7 @@ void BallSmashDecorator::changeVelocity(const QVector2D &delta) {
     bool newState = isSubBallMoving();
     if(newState == false && oldState != newState) {
         std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
-        Notify(std::move(notification));
+        notify(std::move(notification));
     }
     double lenChange = fabs((preVel - m_subBall->getVelocity()).length());
     if (lenChange > 3.0) addCrumbs(m_subBall->getPosition().toPointF());

@@ -64,7 +64,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the ball
      * @return state as a string
      */
-    virtual std::string ExportState() override { return m_subBall->ExportState(); }
+    virtual std::string exportState() override { return m_subBall->exportState(); }
 };
 
 /**

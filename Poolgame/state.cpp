@@ -10,7 +10,7 @@ GameState::GameState(GameState &state)
     }
 }
 
-void GameState::UpdateState(State *state) {
+void GameState::updateState(State *state) {
     if(GameState *gameState = dynamic_cast<GameState*>(state)) {
         // Perform a deepcopy
         m_table = gameState->getTable()->duplicate();
@@ -33,14 +33,14 @@ void GameState::UpdateState(State *state) {
     }
 }
 
-std::string GameState::ExportState() {
+std::string GameState::exportState() {
     std::string content = "\"table\": {\n";
-    content += m_table->ExportState();
+    content += m_table->exportState();
     content += "},\n";
     content += "\"balls\": [\n";
     int size = (*m_balls).size();
     for(int i=0;i<size;i++) {
-        content += (*m_balls)[i]->ExportState();
+        content += (*m_balls)[i]->exportState();
         if(i < size - 1) {
             content += ",\n";
         }

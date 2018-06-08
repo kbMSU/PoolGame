@@ -182,13 +182,13 @@ std::pair<QVector2D, QVector2D> Game::resolveCollision(Ball* ballA, Ball* ballB)
 }
 
 std::unique_ptr<Memento> Game::saveToMemento() {
-    return std::unique_ptr<Memento>(new Memento(m_gameState->Duplicate()));
+    return std::unique_ptr<Memento>(new Memento(m_gameState->duplicate()));
 }
 
 void Game::restoreFromMemento(Memento* memento) {
     State* state = memento->getState();
     if(GameState* gameState = dynamic_cast<GameState*>(state)) {
-        m_gameState->UpdateState(gameState);
+        m_gameState->updateState(gameState);
 
     } else {
         std::cerr << "Game:Restore warning! This memento is invalid" << std::endl;

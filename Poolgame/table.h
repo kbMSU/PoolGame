@@ -32,7 +32,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the table
      * @return state as a string
      */
-    virtual std::string ExportState();
+    virtual std::string exportState();
 
     /**
      * @brief render - draw the table to screen using the specified painter
@@ -93,7 +93,7 @@ public:
      * @brief ExportState - creates a string (formatted JSON) of the table
      * @return state as a string
      */
-    virtual std::string ExportState() override;
+    virtual std::string exportState() override;
 
     ~StageTwoTable();
 

@@ -21,19 +21,19 @@ public:
      * @brief duplicate - creates a deep copy duplicate of the state
      * @return state pointer
      */
-    virtual State* Duplicate() = 0;
+    virtual State* duplicate() = 0;
 
     /**
      * @brief UpdateState - Update this with information from the provided state
      * @param state - the new information
      */
-    virtual void UpdateState(State* state) = 0;
+    virtual void updateState(State* state) = 0;
 
     /**
      * @brief ExportState - creates a string (formatted JSON) of the state
      * @return state as a string
      */
-    virtual std::string ExportState() = 0;
+    virtual std::string exportState() = 0;
 };
 
 /**
@@ -51,7 +51,7 @@ public:
      * @brief duplicate - creates a deep copy duplicate of the state
      * @return state pointer
      */
-    virtual State* Duplicate() override { return new GameState(*this); }
+    virtual State* duplicate() override { return new GameState(*this); }
 
     std::vector<Ball*>* getBalls() {return m_balls;}
     Table* getTable() {return m_table;}
@@ -72,13 +72,13 @@ public:
      * @brief UpdateState - Update this with information from the provided state
      * @param state - the new information
      */
-    virtual void UpdateState(State* state) override;
+    virtual void updateState(State* state) override;
 
     /**
      * @brief ExportState - creates a string (formatted JSON) of the state
      * @return state as a string
      */
-    virtual std::string ExportState() override;
+    virtual std::string exportState() override;
 private:
     void clearState() {
         delete m_table;

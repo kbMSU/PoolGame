@@ -2,7 +2,7 @@
 #include "ball.h"
 #include <iostream>
 
-std::string Table::ExportState() {
+std::string Table::exportState() {
     std::string content = "";
     content += "\"colour\": \"" + m_brush.color().name().toStdString() + "\",\n";
     content += "\"size\": {\n\"x\": " + std::to_string(m_width) + ",\n" + "\"y\": " + std::to_string(m_height) + "\n},\n";
@@ -10,12 +10,12 @@ std::string Table::ExportState() {
     return content;
 }
 
-std::string StageTwoTable::ExportState() {
-    std::string content = Table::ExportState() + ",\n";
+std::string StageTwoTable::exportState() {
+    std::string content = Table::exportState() + ",\n";
     content += "\"pockets\": [\n";
     int size = m_pockets.size();
     for(int i=0;i<size;i++) {
-        content += m_pockets[i]->ExportState();
+        content += m_pockets[i]->exportState();
         if(i < size-1) {
             content += ",\n";
         }

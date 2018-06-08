@@ -12,7 +12,7 @@ Caretaker::Caretaker(Game* game)
 
     // Set this caretaker to observe the cueball (if one exists)
     if(Ball* cb = m_game->getCueBall()) {
-        cb->AttachObserver(this);
+        cb->attachObserver(this);
     }
 
     // Get the highscore
@@ -42,8 +42,12 @@ void Caretaker::rewind() {
 }
 
 void Caretaker::reset() {
-    while(m_currentStateIndex > 0) {
-        rewind();
+    if(m_currentStateIndex == 0) {
+        restore();
+    } else {
+        while(m_currentStateIndex > 0) {
+            rewind();
+        }
     }
 }
 
@@ -58,7 +62,7 @@ void Caretaker::fastforward() {
 void Caretaker::restore() {
     m_game->restoreFromMemento(m_savedStates[m_currentStateIndex].get());
     if(Ball* cb = m_game->getCueBall()) {
-        cb->AttachObserver(this);
+        cb->attachObserver(this);
     }
 }
 
@@ -75,7 +79,7 @@ void Caretaker::save() {
 
 void Caretaker::exportLastSave() {
     std::string content = "{ \"stage3\": true,\n"
-            + m_savedStates.back()->getState()->ExportState()
+            + m_savedStates.back()->getState()->exportState()
             + " }";
     QFile file(export_path);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -83,7 +87,7 @@ void Caretaker::exportLastSave() {
     file.close();
 }
 
-void Caretaker::Notify(std::unique_ptr<Notification> n) {
+void Caretaker::notify(std::unique_ptr<Notification> n) {
     // If the notification is that the CueBall has come to rest, then save the state
     if(CueBallStoppedNotification* c = dynamic_cast<CueBallStoppedNotification*>(n.get()))
         save();

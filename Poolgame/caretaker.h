@@ -65,7 +65,7 @@ public:
      * @brief Notify - Notification to the observer from the observerable
      * @param n - The notification that was sent
      */
-    virtual void Notify(std::unique_ptr<Notification> n) override;
+    virtual void notify(std::unique_ptr<Notification> n) override;
 private:
     /**
      * @brief rewind - Move back 1 state if possible
