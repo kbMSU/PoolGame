@@ -23,6 +23,9 @@ public:
         m_brush(table.getBrush()), m_friction(table.getFriction()) {}
 
     virtual Table* duplicate() = 0;
+
+    virtual std::string ExportState();
+
     virtual int getScore() { return 0; }
 
     /**
@@ -70,6 +73,8 @@ public:
     }
 
     virtual Table* duplicate() override { return new StageTwoTable(*this); }
+
+    virtual std::string ExportState() override;
 
     ~StageTwoTable();
 

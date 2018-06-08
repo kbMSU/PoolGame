@@ -72,7 +72,13 @@ void Caretaker::save() {
 }
 
 void Caretaker::exportLastSave() {
-
+    std::string content = "{ \"stage3\": true,\n"
+            + m_savedStates.back()->getState()->ExportState()
+            + " }";
+    QFile file(export_path);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    file.write(content.c_str());
+    file.close();
 }
 
 void Caretaker::Notify(std::unique_ptr<Notification> n) {

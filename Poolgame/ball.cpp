@@ -1,6 +1,42 @@
 #include "ball.h"
 #include <iostream>
 
+std::string Ball::ExportState() {
+    std::string content = "";
+    content += "{\"position\": {\"x\":"+std::to_string(m_pos.x())+",\"y\":"+std::to_string(m_pos.y())+"},";
+    content += "\"velocity\": {\"x\":"+std::to_string(m_velocity.x())+",\"y\":"+std::to_string(m_velocity.y())+"},";
+    content += "\"mass\":"+std::to_string(m_mass)+",";
+    content += "\"colour\":\""+m_brush.color().name().toStdString()+"\",";
+    content += "\"radius\":"+std::to_string(m_radius)+"}\n";
+    return content;
+}
+
+std::string CompositeBall::ExportState() {
+    std::string content = "";
+    content += "{\"position\": {\"x\":"+std::to_string(m_pos.x())+",\"y\":"+std::to_string(m_pos.y())+"},";
+    content += "\"velocity\": {\"x\":"+std::to_string(m_velocity.x())+",\"y\":"+std::to_string(m_velocity.y())+"},";
+    content += "\"mass\":"+std::to_string(m_mass)+",";
+    content += "\"colour\":\""+m_brush.color().name().toStdString()+"\",";
+    content += "\"radius\":"+std::to_string(m_radius);
+    if(m_strength < std::numeric_limits<double>::max()) {
+        content += ",\"strength\":"+std::to_string(m_strength);
+    }
+    if(m_children.size() == 0) {
+        content += "}\n";
+        return content;
+    } else {
+        content += ",\n\"balls\": [\n";
+        for(int i=0;i<m_children.size();i++) {
+            content += m_children[i]->ExportState();
+            if(i < m_children.size() - 1) {
+                content += ",\n";
+            }
+        }
+        content += "]\n}";
+        return content;
+    }
+}
+
 void StageOneBall::render(QPainter &painter, const QVector2D& offset) {
     // use our colour
     painter.setBrush(m_brush);

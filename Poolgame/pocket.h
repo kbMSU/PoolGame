@@ -22,6 +22,8 @@ public:
 
     virtual Pocket* duplicate() { return new Pocket(*this); }
 
+    virtual std::string ExportState();
+
     /**
      * @brief render - draw the pocket to the screen with the provided brush and offset
      * @param painter - the brush to paint with

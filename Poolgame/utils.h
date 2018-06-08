@@ -13,6 +13,8 @@ constexpr char config_path[] = "/Users/Karthik/Desktop/config.json";
 
 constexpr char highscore_path[] = "highscore.json";
 
+constexpr char export_path[] = "save.json";
+
 constexpr int animFrameMS = 16;
 constexpr int drawFrameMS = 16;
 

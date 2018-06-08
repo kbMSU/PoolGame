@@ -158,7 +158,7 @@ void Dialog::receiveMessage(const QString& msg) {
     } else if (msg.toStdString() == "ResetGame") {
         m_caretaker->reset();
         showGame();
-    } else if (msg.toStdString() == "Export State") {
+    } else if (msg.toStdString() == "ExportSave") {
         m_caretaker->exportLastSave();
         showGame();
     } else if (msg.toStdString() == "BackMenu") {

@@ -2,6 +2,27 @@
 #include "ball.h"
 #include <iostream>
 
+std::string Table::ExportState() {
+    std::string content = "";
+    content += "\"colour\": \"" + m_brush.color().name().toStdString() + "\",\n";
+    content += "\"size\": {\n\"x\": " + std::to_string(m_width) + ",\n" + "\"y\": " + std::to_string(m_height) + "\n},\n";
+    content += "\"friction\": " + std::to_string(m_friction) + "\n";
+    return content;
+}
+
+std::string StageTwoTable::ExportState() {
+    std::string content = Table::ExportState() + ",\n";
+    content += "\"pockets\": [\n";
+    for(int i=0;i<m_pockets.size();i++) {
+        content += m_pockets[i]->ExportState();
+        if(i < m_pockets.size()-1) {
+            content += ",\n";
+        }
+    }
+    content += "]\n";
+    return content;
+}
+
 void StageOneTable::render(QPainter &painter, const QVector2D& offset) {
     // our table colour
     painter.setBrush(m_brush);

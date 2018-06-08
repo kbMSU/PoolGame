@@ -16,6 +16,7 @@ public:
     virtual ~State() {}
     virtual State* Duplicate() = 0;
     virtual void UpdateState(State* state) = 0;
+    virtual std::string ExportState() = 0;
 };
 
 class GameState : public State
@@ -24,17 +25,15 @@ public:
     GameState(std::vector<Ball*>* balls, Table* table)
         :State(),m_balls(balls),m_table(table) {}
     GameState(GameState& state);
+    virtual ~GameState() {clearState();}
 
     virtual State* Duplicate() override { return new GameState(*this); }
-
-    virtual ~GameState() {clearState();}
 
     std::vector<Ball*>* getBalls() {return m_balls;}
     Table* getTable() {return m_table;}
     int getStage() {return m_stage;}
-    MouseEventable::EventQueue& getEventFns() {return m_mouseEventFunctions;}
-
     void setStage(int stage) {m_stage = stage;}
+    MouseEventable::EventQueue& getEventFns() {return m_mouseEventFunctions;}
 
     /**
      * @brief addMouseFunctions - append all of the specified functions to be
@@ -46,6 +45,8 @@ public:
     }
 
     virtual void UpdateState(State* state) override;
+
+    virtual std::string ExportState() override;
 private:
     void clearState() {
         delete m_table;

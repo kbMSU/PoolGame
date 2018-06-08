@@ -33,6 +33,8 @@ public:
     virtual Ball* duplicate() = 0;
     virtual bool isCueBall() { return false; }
 
+    virtual std::string ExportState();
+
     /**
      * @brief render - draw the ball to the screen
      * @param painter - QPainter that is owned by the dialog
@@ -105,6 +107,8 @@ public:
     }
 
     virtual Ball* duplicate() override { return new CompositeBall(*this); }
+
+    virtual std::string ExportState() override;
 
     bool getRenderChildren() { return m_renderChildren; }
     double getStrength() { return m_strength; }

@@ -7,7 +7,6 @@ GameState::GameState(GameState &state)
     for(Ball* b : (* (state).getBalls()) ) {
         m_balls->push_back(b->duplicate());
     }
-    //std::cout << "Gamestate : Copy constructor" << std::endl;
 }
 
 void GameState::UpdateState(State *state) {
@@ -27,4 +26,19 @@ void GameState::UpdateState(State *state) {
     } else {
         std::cerr << "GameState:UpdateState warning! This state object is invalid" << std::endl;
     }
+}
+
+std::string GameState::ExportState() {
+    std::string content = "\"table\": {\n";
+    content += m_table->ExportState();
+    content += "},\n";
+    content += "\"balls\": [\n";
+    for(int i=0;i<(*m_balls).size();i++) {
+        content += (*m_balls)[i]->ExportState();
+        if(i < (*m_balls).size() - 1) {
+            content += ",\n";
+        }
+    }
+    content += "]\n";
+    return content;
 }
