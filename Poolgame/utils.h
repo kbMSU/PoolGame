@@ -10,17 +10,17 @@
 #include <QDir>
 
 /* filename of the config file */
-constexpr char config_path[] = "config/config.json"; //"/Users/Karthik/Desktop/config.json";
+constexpr char config_path[] = "config/config.json";
 /* filename of the file to store the highscore */
 constexpr char highscore_path[] = "highscore.json";
 /* filename of the file to export the state */
 constexpr char export_path[] = "save.json";
 /* the path to the start screen QML */
-const QString start_screen_path = "config/start.qml"; //QDir::currentPath() + "../../../../config/start.qml";
+const QString start_screen_path = "config/start.qml";
 /* the path to the confirm scren QML */
-const QString confirm_screen_path = "config/QuitConfirm.qml"; //QDir::currentPath() + "../../../../config/QuitConfirm.qml";
+const QString confirm_screen_path = "config/QuitConfirm.qml";
 /* the path to the menu screen QML */
-const QString menu_screen_path = "config/menu.qml"; //QDir::currentPath() + "../../../../config/menu.qml";
+const QString menu_screen_path = "config/menu.qml";
 
 constexpr int animFrameMS = 16;
 constexpr int drawFrameMS = 16;
