@@ -26,9 +26,10 @@ std::string CompositeBall::ExportState() {
         return content;
     } else {
         content += ",\n\"balls\": [\n";
-        for(int i=0;i<m_children.size();i++) {
+        int size = m_children.size();
+        for(int i=0;i<size;i++) {
             content += m_children[i]->ExportState();
-            if(i < m_children.size() - 1) {
+            if(i < size - 1) {
                 content += ",\n";
             }
         }

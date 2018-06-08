@@ -15,7 +15,7 @@ Caretaker::Caretaker(Game* game)
         cb->AttachObserver(this);
     }
 
-    // Check for the highscore
+    // Get the highscore
     QFile readfile(highscore_path);
     if(readfile.exists()) {
         readfile.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -31,6 +31,7 @@ Caretaker::~Caretaker() {
 }
 
 void Caretaker::rewind() {
+    // If there are no states to rewind, just go back to initial state as defined by the config
     if(m_currentStateIndex <= 0) {
         restore();
         return;
@@ -83,6 +84,7 @@ void Caretaker::exportLastSave() {
 }
 
 void Caretaker::Notify(std::unique_ptr<Notification> n) {
+    // If the notification is that the CueBall has come to rest, then save the state
     if(CueBallStoppedNotification* c = dynamic_cast<CueBallStoppedNotification*>(n.get()))
         save();
 }
@@ -102,19 +104,10 @@ void Caretaker::processKeyRelease(QKeyEvent *event) {
 
 void Caretaker::saveHighScore() {
     int score = m_game->getScore();
+    if(score < m_highscore)
+        return;
 
-    QFile readfile(highscore_path);
-    if(readfile.exists()) {
-        readfile.open(QIODevice::ReadOnly | QIODevice::Text);
-        QString content = readfile.readAll();
-        readfile.close();
-        QJsonObject highscoreObject = QJsonDocument::fromJson(content.toUtf8()).object();
-        int highscore = highscoreObject.value("highscore").toInt(0);
-
-        if(score <= highscore)
-            return;
-    }
-
+    // If the current score is more than the highscore, then save it as the new highscore
     std::string content = "{ \"highscore\": " + std::to_string(score) + " }";
     QFile file(highscore_path);
     file.open(QIODevice::WriteOnly | QIODevice::Text);

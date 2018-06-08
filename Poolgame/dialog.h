@@ -57,6 +57,11 @@ private:
     void evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent* event);
 
     /**
+     * @brief setupMenus - Load and configure the menu screens
+     */
+    void setupMenus();
+
+    /**
      * @brief startGame - Start the game
      */
     void startGame();

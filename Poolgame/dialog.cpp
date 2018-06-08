@@ -14,33 +14,38 @@ Dialog::Dialog(Game *game, QWidget* parent) :
 {
     ui->setupUi(this);
 
-    QString startPath = QDir::currentPath() + "../../../../config/start.qml";
-    m_startView = new QQuickView;
-    m_startView->setSource(QUrl::fromLocalFile(startPath));
-
-    QObject* startItem = m_startView->rootObject();
-    QQmlProperty::write(startItem, "highscore", m_caretaker->getHighscore());
-    QObject::connect(startItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
-
-    QString confirmPath = QDir::currentPath() + "../../../../config/QuitConfirm.qml";
-    m_confirmView = new QQuickView;
-    m_confirmView->setSource(QUrl::fromLocalFile(confirmPath));
-
-    QObject* confirmItem = m_confirmView->rootObject();
-    QObject::connect(confirmItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
-
-    QString menuPath = QDir::currentPath() + "../../../../config/menu.qml";
-    m_menuView = new QQuickView;
-    m_menuView->setSource(QUrl::fromLocalFile(menuPath));
-
-    QObject* menuItem = m_menuView->rootObject();
-    QObject::connect(menuItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+    setupMenus();
 
     if(m_caretaker->getStage() < 3) {
         startGame();
     } else {
         showStartScreen();
     }
+}
+
+void Dialog::setupMenus() {
+    // Get the start screen
+    m_startView = new QQuickView;
+    m_startView->setSource(QUrl::fromLocalFile(start_screen_path));
+    QObject* startItem = m_startView->rootObject();
+    // Write the value of the highscore on the start screen
+    QQmlProperty::write(startItem, "highscore", m_caretaker->getHighscore());
+    // Listen to button clicks from the start screen
+    QObject::connect(startItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+
+    // Get the confirm quit screen
+    m_confirmView = new QQuickView;
+    m_confirmView->setSource(QUrl::fromLocalFile(confirm_screen_path));
+    QObject* confirmItem = m_confirmView->rootObject();
+    // Listen to button clicks from the confirm quit screen
+    QObject::connect(confirmItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
+
+    // Get the in-game menu screen
+    m_menuView = new QQuickView;
+    m_menuView->setSource(QUrl::fromLocalFile(menu_screen_path));
+    QObject* menuItem = m_menuView->rootObject();
+    // Listen to button clicks from the menu screen
+    QObject::connect(menuItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 }
 
 void Dialog::startGame() {
@@ -84,7 +89,7 @@ void Dialog::nextAnim() {
 void Dialog::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    m_caretaker->getGame()->render(painter);
+    m_caretaker->render(painter);
 }
 
 void Dialog::mousePressEvent(QMouseEvent* event) {
@@ -175,7 +180,7 @@ void Dialog::receiveMessage(const QString& msg) {
 
 void Dialog::evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent *event) {
     // handle all the clicky events, and remove them if they've xPIRED
-    MouseEventable::EventQueue& Qu = m_caretaker->getGame()->getEventFns();
+    MouseEventable::EventQueue& Qu = m_caretaker->getEventFns();
     for (ssize_t i = Qu.size()-1; i >= 0; i--) {
         if (auto spt = (Qu.at(i)).lock()) {
             if (spt->second == t) {

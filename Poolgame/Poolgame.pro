@@ -37,7 +37,8 @@ SOURCES += \
     stagetwobuilder.cpp \
     balldecorator.cpp \
     caretaker.cpp \
-    state.cpp
+    state.cpp \
+    observable.cpp
 
 HEADERS += \
         dialog.h \

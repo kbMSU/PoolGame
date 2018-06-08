@@ -47,6 +47,19 @@ public:
     QSize getGameSize() const { return QSize(m_game->getMinimumWidth(),m_game->getMinimumHeight()); }
     void animate(double dt) { m_game->animate(dt); }
     int getStage() {return m_game->getStage();}
+
+    /**
+     * @brief getEventFns - get all of our event functions (mouseclicksfns, etc)
+     * @return event queue of event functions
+     */
+    MouseEventable::EventQueue& getEventFns() { return m_game->getEventFns(); }
+
+    /**
+     * @brief Draws all owned objects to the screen (balls and table)
+     * @param painter - qtpainter to blit to screen with
+     */
+    void render(QPainter& painter) const { m_game->render(painter); }
+
 public:
     /**
      * @brief Notify - Notification to the observer from the observerable

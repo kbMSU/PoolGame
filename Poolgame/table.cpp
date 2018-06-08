@@ -13,9 +13,10 @@ std::string Table::ExportState() {
 std::string StageTwoTable::ExportState() {
     std::string content = Table::ExportState() + ",\n";
     content += "\"pockets\": [\n";
-    for(int i=0;i<m_pockets.size();i++) {
+    int size = m_pockets.size();
+    for(int i=0;i<size;i++) {
         content += m_pockets[i]->ExportState();
-        if(i < m_pockets.size()-1) {
+        if(i < size-1) {
             content += ",\n";
         }
     }
