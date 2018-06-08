@@ -91,15 +91,25 @@ public:
      */
     MouseEventable::EventQueue& getEventFns() { return m_gameState->getEventFns(); }
 
+    /**
+     * @brief saveToMemento - Create a new memento of the current game
+     * @return A new unique memento
+     */
     std::unique_ptr<Memento> saveToMemento();
 
+    /**
+     * @brief restoreFromMemento - Restore the game from a memento
+     * @param memento - the memento to restore from
+     */
     void restoreFromMemento(Memento* memento);
 
+    /**
+     * @brief getCueBall - Returns a the cueball if there is one
+     * @return Either a Ball pointer if the cueball exists, or a nullptr if it does not
+     */
     Ball* getCueBall();
 
     int getStage() { return m_gameState->getStage(); }
-
     void setStage(int stage) { m_gameState->setStage(stage); }
-
     int getScore() { return m_gameState->getTable()->getScore(); }
 };

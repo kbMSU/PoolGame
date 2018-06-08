@@ -30,9 +30,22 @@ public:
         m_velocity(ball.getVelocity()), m_mass(ball.getMass()),
         m_radius(ball.getRadius()) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() = 0;
+
+    /**
+     * @brief isCueBall - checks if this ball is the cueball or not
+     * @return
+     */
     virtual bool isCueBall() { return false; }
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the ball
+     * @return state as a string
+     */
     virtual std::string ExportState();
 
     /**
@@ -78,6 +91,10 @@ public:
         Ball(colour, position, velocity, mass, radius) {}
     StageOneBall(StageOneBall& ball) : Ball(ball) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new StageOneBall(*this); }
 
     /**
@@ -106,8 +123,16 @@ public:
         }
     }
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new CompositeBall(*this); }
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the ball
+     * @return state as a string
+     */
     virtual std::string ExportState() override;
 
     bool getRenderChildren() { return m_renderChildren; }

@@ -15,6 +15,7 @@ Caretaker::Caretaker(Game* game)
         cb->AttachObserver(this);
     }
 
+    // Check for the highscore
     QFile readfile(highscore_path);
     if(readfile.exists()) {
         readfile.open(QIODevice::ReadOnly | QIODevice::Text);

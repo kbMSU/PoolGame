@@ -22,11 +22,17 @@ public:
         m_width(table.getWidth()), m_height(table.getHeight()),
         m_brush(table.getBrush()), m_friction(table.getFriction()) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the table
+     * @return table pointer
+     */
     virtual Table* duplicate() = 0;
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the table
+     * @return state as a string
+     */
     virtual std::string ExportState();
-
-    virtual int getScore() { return 0; }
 
     /**
      * @brief render - draw the table to screen using the specified painter
@@ -38,6 +44,7 @@ public:
     int getHeight() const { return m_height; }
     double getFriction() const { return m_friction; }
     QBrush getBrush() const { return m_brush; }
+    virtual int getScore() { return 0; }
 
     virtual bool sinks(Ball*) { return false; }
 };
@@ -49,6 +56,10 @@ public:
         Table(width, height, colour, friction) {}
     StageOneTable(StageOneTable& table) : Table(table) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the table
+     * @return table pointer
+     */
     virtual Table* duplicate() override { return new StageOneTable(*this); }
 
     /**
@@ -72,14 +83,21 @@ public:
         }
     }
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the table
+     * @return table pointer
+     */
     virtual Table* duplicate() override { return new StageTwoTable(*this); }
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the table
+     * @return state as a string
+     */
     virtual std::string ExportState() override;
 
     ~StageTwoTable();
 
     std::vector<Pocket*> getPockets() {return m_pockets;}
-
     virtual int getScore() override;
 
     /**

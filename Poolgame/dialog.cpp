@@ -36,7 +36,11 @@ Dialog::Dialog(Game *game, QWidget* parent) :
     QObject* menuItem = m_menuView->rootObject();
     QObject::connect(menuItem,SIGNAL(qmlSignal(QString)),this,SLOT(receiveMessage(QString)));
 
-    showStartScreen();
+    if(m_caretaker->getStage() < 3) {
+        startGame();
+    } else {
+        showStartScreen();
+    }
 }
 
 void Dialog::startGame() {
@@ -135,6 +139,9 @@ void Dialog::quitGame() {
 }
 
 void Dialog::keyReleaseEvent(QKeyEvent *event) {
+    if(m_caretaker->getStage() < 3)
+        return;
+
     switch (event->key()) {
     case Qt::Key_Q:
         showConfirmBox();

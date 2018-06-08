@@ -42,6 +42,10 @@ public slots:
     // qt key release
     void keyReleaseEvent(QKeyEvent *event);
 
+    /**
+     * @brief receiveMessage - Receive a message from the QML
+     * @param msg - the message received
+     */
     void receiveMessage(const QString& msg);
 private:
     /**
@@ -52,16 +56,34 @@ private:
      */
     void evalAllEventsOfTypeSpecified(MouseEventable::EVENTS t, QMouseEvent* event);
 
+    /**
+     * @brief startGame - Start the game
+     */
     void startGame();
 
+    /**
+     * @brief showStartScreen - Show the start screen
+     */
     void showStartScreen();
 
+    /**
+     * @brief showConfirmBox - Show the confirmation box
+     */
     void showConfirmBox();
 
+    /**
+     * @brief showGame - Show the game
+     */
     void showGame();
 
+    /**
+     * @brief quitGame - Quit the game
+     */
     void quitGame();
 
+    /**
+     * @brief showMenu - Show the menu
+     */
     void showMenu();
 private:
     /**

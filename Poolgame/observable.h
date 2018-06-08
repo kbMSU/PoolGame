@@ -5,6 +5,9 @@
 #include "observer.h"
 #include "notification.h"
 
+/**
+ * @brief The Observable class - Used in the Observer pattern
+ */
 class Observable
 {
 public:
@@ -13,10 +16,18 @@ public:
         m_observers.clear();
     }
 
+    /**
+     * @brief AttachObserver - Attach an observer to this object
+     * @param o - The observer to attach
+     */
     virtual void AttachObserver(Observer* o) {
         m_observers.push_back(o);
     }
 
+    /**
+     * @brief DetachObserver - Detach an observer from this object
+     * @param o - The observer to detach
+     */
     virtual void DetachObserver(Observer* o) {
         std::vector<Observer*>::iterator it;
         for(it = m_observers.begin(); it != m_observers.end(); ++it) {
@@ -28,13 +39,16 @@ public:
             m_observers.erase(it);
     }
 
+    /**
+     * @brief Notify - Notify all attached observers
+     * @param n - The notification to send
+     */
     virtual void Notify(std::unique_ptr<Notification> n) {
         for (Observer* o : m_observers) {
             o->Notify(std::move(n));
         }
     }
-
-    //std::vector<std::shared_ptr<Observer>> getObservers() {return m_observers;}
 protected:
+    // All the observers that are monitoring this observable
     std::vector<Observer*> m_observers;
 };

@@ -20,8 +20,16 @@ public:
         m_pocketBrush(pocket.getBrush()),m_sunk(pocket.getSunk()) {}
     virtual ~Pocket() {}
 
+    /**
+     * @brief duplicate - Create a deep copy of the pocket
+     * @return Pocket pointer
+     */
     virtual Pocket* duplicate() { return new Pocket(*this); }
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the pocket
+     * @return state as a string
+     */
     virtual std::string ExportState();
 
     /**

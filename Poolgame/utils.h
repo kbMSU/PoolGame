@@ -10,9 +10,9 @@
 
 /* filename of the config file */
 constexpr char config_path[] = "/Users/Karthik/Desktop/config.json";
-
+/* filename of the file to store the highscore */
 constexpr char highscore_path[] = "highscore.json";
-
+/* filename of the file to export the state */
 constexpr char export_path[] = "save.json";
 
 constexpr int animFrameMS = 16;

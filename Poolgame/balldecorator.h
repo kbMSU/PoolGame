@@ -20,8 +20,22 @@ public:
     BallDecorator(BallDecorator* b) : m_subBall(b->getSubBall()) {}
     BallDecorator(BallDecorator& b) { m_subBall = b.getSubBall()->duplicate(); }
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new BallDecorator(*this); }
+
+    /**
+     * @brief isCueBall - checks if this ball is the cueball or not
+     * @return bool
+     */
     virtual bool isCueBall() override { return m_subBall->isCueBall(); }
+
+    /**
+     * @brief getCueBall - Returns a Cueball if there is one in this decorator
+     * @return the cueball or nullptr
+     */
     virtual BallDecorator* getCueBall() {
         if(BallDecorator* bd = dynamic_cast<BallDecorator*>(m_subBall))
             return bd->getCueBall();
@@ -46,6 +60,10 @@ public:
     virtual void setPosition(QVector2D p) override { m_subBall->setPosition(p); }
     virtual bool applyBreak(const QVector2D& q, std::vector<Ball*>& b) override { return m_subBall->applyBreak(q,b); }
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the ball
+     * @return state as a string
+     */
     virtual std::string ExportState() override { return m_subBall->ExportState(); }
 };
 
@@ -69,8 +87,22 @@ public:
     CueBall(Ball* b) : BallDecorator(b), MouseEventable(this) {}
     CueBall(CueBall& b) : BallDecorator(b), MouseEventable(this), m_startMousePos(b.m_startMousePos), m_endMousePos(b.m_endMousePos), isDragging(b.isDragging) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new CueBall(*this); }
+
+    /**
+     * @brief isCueBall - checks if this ball is the cueball or not
+     * @return
+     */
     virtual bool isCueBall() override { return true; }
+
+    /**
+     * @brief getCueBall - Returns a Cueball if there is one in this decorator
+     * @return the cueball or nullptr
+     */
     virtual CueBall* getCueBall() override { return this; }
 
     /**
@@ -107,6 +139,9 @@ public:
      */
     virtual void mouseReleaseEvent(QMouseEvent* e) override;
 private:
+    /**
+     * @brief checkStateChange - If the state of the cueball has changed we have to notify the observer
+     */
     void checkStateChange();
 };
 
@@ -134,6 +169,10 @@ public:
     BallSparkleDecorator(BallSparkleDecorator& b) :
         BallDecorator(b), m_sparklePositions(b.m_sparklePositions) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new BallSparkleDecorator(*this); }
 
     /**
@@ -172,6 +211,10 @@ public:
     BallSmashDecorator(BallSmashDecorator& b) :
         BallDecorator(b), m_crumbs(b.m_crumbs) {}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the ball
+     * @return ball pointer
+     */
     virtual Ball* duplicate() override { return new BallSmashDecorator(*this); }
 
     /**

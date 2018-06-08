@@ -8,17 +8,37 @@
 #include <vector>
 #include <QMouseEvent>
 
-
+/**
+ * @brief The State class - The state stored by the memento
+ */
 class State
 {
 public:
     State() {}
     virtual ~State() {}
+
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the state
+     * @return state pointer
+     */
     virtual State* Duplicate() = 0;
+
+    /**
+     * @brief UpdateState - Update this with information from the provided state
+     * @param state - the new information
+     */
     virtual void UpdateState(State* state) = 0;
+
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the state
+     * @return state as a string
+     */
     virtual std::string ExportState() = 0;
 };
 
+/**
+ * @brief The GameState class - The state of the game
+ */
 class GameState : public State
 {
 public:
@@ -27,6 +47,10 @@ public:
     GameState(GameState& state);
     virtual ~GameState() {clearState();}
 
+    /**
+     * @brief duplicate - creates a deep copy duplicate of the state
+     * @return state pointer
+     */
     virtual State* Duplicate() override { return new GameState(*this); }
 
     std::vector<Ball*>* getBalls() {return m_balls;}
@@ -44,8 +68,16 @@ public:
         std::copy(fns.begin(), fns.end(), std::back_inserter(m_mouseEventFunctions));
     }
 
+    /**
+     * @brief UpdateState - Update this with information from the provided state
+     * @param state - the new information
+     */
     virtual void UpdateState(State* state) override;
 
+    /**
+     * @brief ExportState - creates a string (formatted JSON) of the state
+     * @return state as a string
+     */
     virtual std::string ExportState() override;
 private:
     void clearState() {

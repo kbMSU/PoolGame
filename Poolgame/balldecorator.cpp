@@ -13,23 +13,27 @@ void CueBall::render(QPainter &painter, const QVector2D &offset) {
 void CueBall::changeVelocity(const QVector2D &delta) {
     bool oldState = isSubBallMoving();
     BallDecorator::changeVelocity(delta);
+    // If the ball was moving before, check if it has stopped now
     if(oldState) checkStateChange();
 }
 
 void CueBall::multiplyVelocity(const QVector2D &vel) {
     bool oldState = isSubBallMoving();
     BallDecorator::multiplyVelocity(vel);
+    // If the ball was moving before, check if it has stopped now
     if(oldState) checkStateChange();
 }
 
 void CueBall::setVelocity(QVector2D v) {
     bool oldState = isSubBallMoving();
     BallDecorator::setVelocity(v);
+    // If the ball was moving before, check if it has stopped now
     if(oldState) checkStateChange();
 }
 
 void CueBall::checkStateChange() {
     bool newState = isSubBallMoving();
+    // If the ball has stopped, time to save a memento. Notify the observer.
     if(newState == false) {
         std::unique_ptr<Notification> notification(new CueBallStoppedNotification);
         Notify(std::move(notification));

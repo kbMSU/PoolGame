@@ -16,6 +16,7 @@ void GameState::UpdateState(State *state) {
         m_balls = new std::vector<Ball*>();
         for(Ball* b : * ((gameState)->getBalls())) {
             Ball* duplicate = b->duplicate();
+            // If its a cueball we need to get the EventFunctions
             if(duplicate->isCueBall()) {
                 BallDecorator* bd = dynamic_cast<BallDecorator*>(duplicate);
                 CueBall* cb = dynamic_cast<CueBall*>(bd->getCueBall());
