@@ -10,8 +10,9 @@
  */
 class Observable
 {
-public:
+protected:
     Observable() {}
+public:
     virtual ~Observable() {
         m_observers.clear();
     }
